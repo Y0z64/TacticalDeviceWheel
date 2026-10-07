@@ -1,4 +1,5 @@
 using FirearmController = EFT.Player.FirearmController;
+using System;
 using EFT;
 using EFT.InputSystem;
 using TacticalDeviceWheel.Compatibility;
@@ -282,7 +283,18 @@ internal sealed class InputController
 			{
 			case WheelClickAction.Confirm:
 			{
-				bool flag = plugin.Menu.Commit(((PlayerOwner)owner).Player, firearm);
+				bool flag;
+				try
+				{
+					flag = plugin.Menu.Commit(((PlayerOwner)owner).Player, firearm);
+				}
+				catch (Exception e)
+				{
+					// Leave the menu open: the state it was in before the click is still what the
+					// player sees, so a second click can try again.
+					plugin.TransientFault("InputController.Commit", e);
+					return;
+				}
 				plugin.Debug("TDW LMB TOGGLE applied=" + flag + "; menu remains open");
 				return;
 			}
@@ -297,18 +309,28 @@ internal sealed class InputController
 		switch (gesture.Step(Time.realtimeSinceStartupAsDouble, key, plugin.Options.CloseOnTRelease.Value))
 		{
 		case GestureResult.Open:
-			plugin.Menu.Open(((PlayerOwner)owner).Player, firearm);
-			if (owner != null)
+			try
 			{
-				mouseOwner = owner;
+				plugin.Menu.Open(((PlayerOwner)owner).Player, firearm);
+				if (owner != null)
+				{
+					mouseOwner = owner;
+				}
+				Replay(owner, (ECommand)2);
+				if (UnityEngine.Input.GetMouseButton(0))
+				{
+					leftMouse.Capture();
+				}
+				PollMouseCapture();
+				plugin.Debug("TDW OPEN");
 			}
-			Replay(owner, (ECommand)2);
-			if (UnityEngine.Input.GetMouseButton(0))
+			catch (Exception e)
 			{
-				leftMouse.Capture();
+				// The gesture has already advanced to its opened state, so leaving it there would
+				// strand the state machine: the wheel would never open again. Reset it instead.
+				plugin.TransientFault("InputController.Open", e);
+				Cancel(suppressUntilRelease: false);
 			}
-			PollMouseCapture();
-			plugin.Debug("TDW OPEN");
 			break;
 		case GestureResult.ShortPress:
 			releaseFrame = Time.frameCount;
