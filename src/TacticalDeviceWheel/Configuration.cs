@@ -50,7 +50,7 @@ internal sealed class Configuration
 		Enabled = file.Bind<bool>("General", "Enabled", true, Description("常规", "启用 TDW", "仅在 EFT 战术设备设置为切换时启用轮盘；按住模式始终使用原版输入。"));
 		DebugLogging = file.Bind<bool>("General", "DebugLogging", false, Description("常规", "调试日志", "输出详细输入、设备映射、图标和操作日志。扫描报告由“写入扫描报告”单独控制。"));
 		WriteScanReport = file.Bind<bool>("General", "WriteScanReport", false, Description("常规", "写入扫描报告", "每次打开轮盘时把完整设备扫描结果写入 diagnostics/last-scan.json。默认关闭，避免每次开轮盘都产生磁盘写入。"));
-		GenericModes = file.Bind<bool>("Compatibility", "ShowUnknownModes", true, Description("兼容性", "显示未知模式", "未完成映射的设备显示数字模式；关闭则隐藏这些设备。Mod 新增设备保持此兼容方式。"));
+		GenericModes = file.Bind<bool>("Compatibility", "ShowUnknownModes", true, Description("兼容性", "显示未映射模式", "未完成映射的设备按其实际功能显示模式扇区；关闭则隐藏这些设备。Mod 新增设备保持此兼容方式。"));
 		CloseOnTRelease = file.Bind<bool>("Input", "CloseOnTRelease", true, Description("输入", "松开 T 关闭菜单", "开启：松开 T 关闭菜单，不执行选择。关闭：松开 T 后菜单继续保持。两种模式下左键切换后均不关闭，可连续操作；右键或 Esc 关闭。短按 T 保持原版行为。"));
 		HoldThreshold = file.Bind<float>("Input", "HoldThresholdSeconds", 0.2f, Description("输入", "长按阈值（秒）", "长按 T 达到此时间后打开轮盘；0.20 秒即 200 毫秒。提前松开仅执行一次原版操作。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.05f, 1f)));
 		DeadZone = file.Bind<float>("Input", "CenterDeadZone", 0.2f, Description("输入", "中心死区", "虚拟方向向量的初始死区（半径比例），防止刚打开时误选；回到中心保留最后一个有效选择。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.05f, 0.8f)));

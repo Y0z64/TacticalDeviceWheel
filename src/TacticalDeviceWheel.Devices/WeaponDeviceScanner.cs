@@ -68,9 +68,13 @@ internal sealed class WeaponDeviceScanner
 					flag = plugin.Database.Populate(tacticalDevice, visualSnapshot);
 					if (!flag && plugin.Options.GenericModes.Value)
 					{
+						// Not in devices.json. Name each sector from what the mode actually does,
+						// instead of labelling it unmapped.
+						List<VisualMode> modeVisuals = visualSnapshot?.Devices?.Where((DeviceVisuals v) => v.InstanceId == pair.Key && v.TemplateId == tpl).SelectMany((DeviceVisuals v) => v.Modes).ToList();
 						for (int i = 0; i < num; i++)
 						{
-							tacticalDevice.Capabilities.Add(DeviceDatabase.Generic(tacticalDevice, i));
+							DeviceDatabase.ModeLabel(modeVisuals?.FirstOrDefault((VisualMode m) => m.Mode == i), i, out var text, out var text2);
+							tacticalDevice.Capabilities.Add(DeviceDatabase.Generic(tacticalDevice, i, text, text2));
 						}
 					}
 				}

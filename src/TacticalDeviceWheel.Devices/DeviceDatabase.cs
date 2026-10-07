@@ -229,7 +229,7 @@ internal sealed class DeviceDatabase
 		return true;
 	}
 
-	public static TacticalCapability Generic(TacticalDevice device, int mode)
+	public static TacticalCapability Generic(TacticalDevice device, int mode, string label = null, string labelEn = null)
 	{
 		return new TacticalCapability
 		{
@@ -238,9 +238,60 @@ internal sealed class DeviceDatabase
 			Id = "mode-" + mode,
 			Type = "GenericMode",
 			IconKey = "GenericMode",
-			Label = "未知模式 " + mode,
-			LabelEn = "Unknown mode " + mode,
+			// Neutral fallback: an unmapped device still gets a usable sector name rather than a
+			// placeholder that only says the definition is missing.
+			Label = string.IsNullOrEmpty(label) ? "模式 " + mode : label,
+			LabelEn = string.IsNullOrEmpty(labelEn) ? "Mode " + mode : labelEn,
 			TargetKind = "NativeMode"
 		};
+	}
+
+	/// <summary>
+	///     按该模式的实际拓扑证据拼出扇区名（白光 / 可见激光 / IR 激光 / IR 补光 / 测距，组合用 + 连接）。
+	///     没有证据时回退到中性的"模式 N"。
+	/// </summary>
+	public static void ModeLabel(VisualMode visualMode, int mode, out string label, out string labelEn)
+	{
+		if (visualMode == null)
+		{
+			label = "模式 " + mode;
+			labelEn = "Mode " + mode;
+			return;
+		}
+		List<string> list = new List<string>();
+		List<string> list2 = new List<string>();
+		if (visualMode.WhiteLightCount > 0)
+		{
+			list.Add("白光");
+			list2.Add("White light");
+		}
+		if (visualMode.VisibleLaserCount > 0)
+		{
+			list.Add("可见激光");
+			list2.Add("Visible laser");
+		}
+		if (visualMode.InfraredLaserCount > 0)
+		{
+			list.Add("IR 激光");
+			list2.Add("IR laser");
+		}
+		if (visualMode.InfraredLightCount > 0)
+		{
+			list.Add("IR 补光");
+			list2.Add("IR illuminator");
+		}
+		if (visualMode.RangefinderCount > 0)
+		{
+			list.Add("测距");
+			list2.Add("Rangefinder");
+		}
+		if (list.Count == 0)
+		{
+			label = "模式 " + mode;
+			labelEn = "Mode " + mode;
+			return;
+		}
+		label = string.Join("+", list);
+		labelEn = string.Join(" + ", list2);
 	}
 }
