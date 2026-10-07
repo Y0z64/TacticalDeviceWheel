@@ -155,8 +155,8 @@ behaviour identical:
 - `StrobeController.Find` is a linear search over the entry list and is called from several accessors.
 - `IconManager` caches `null` for a failed icon lookup and re-attempts the file read on each subsequent
   query; there is no built-in fallback sprite.
-- `ReleaseInfo.cs` and `Core/CapabilityTypes.cs` are unreferenced; `LaserObservation.Fingerprint` and the
-  `schemaVersion == 1` migration branch in `DeviceDatabase` are dead code.
+- `LaserObservation.Fingerprint` and the `schemaVersion == 1` migration branch in `DeviceDatabase` are
+  dead code.
 - The runtime-visual-evidence resolution (`ModeDiagnostics`, `ScanDiagnostics`, `VanillaModeResolver`,
   `X400ModeResolver`, `NativeLightRules`, `SpectrumMarkers`) depends on private fields and obfuscated
   identifiers, so it is the part most likely to break on the next game build. Replacing it with explicit

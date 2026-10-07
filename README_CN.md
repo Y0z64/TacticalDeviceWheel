@@ -136,8 +136,7 @@ src/
   `Populate` 里对同一批定义再跑一次。
 - `StrobeController.Find` 是对条目列表的线性查找，却被多个访问器分别调用。
 - `IconManager` 会把加载失败的图标缓存为 `null`，之后每次查询都重试读盘，且没有内置兜底图标。
-- `ReleaseInfo.cs` 与 `Core/CapabilityTypes.cs` 无人引用；`LaserObservation.Fingerprint` 与
-  `DeviceDatabase` 中 `schemaVersion == 1` 的迁移分支是死代码。
+- `LaserObservation.Fingerprint` 与 `DeviceDatabase` 中 `schemaVersion == 1` 的迁移分支是死代码。
 - 运行时视觉证据解析链（`ModeDiagnostics`、`ScanDiagnostics`、`VanillaModeResolver`、`X400ModeResolver`、
   `NativeLightRules`、`SpectrumMarkers`）依赖私有字段与混淆标识符，是下次游戏更新最容易失效的部分。
   若改为按模板 ID 显式列出模式表，可删掉约 800 行并消除全部反射。
