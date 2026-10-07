@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Comfort.Common;
 using EFT.InputSystem;
 using EFT.Settings;
@@ -120,20 +121,20 @@ internal static class NativeSettings
 					continue;
 				}
 				found++;
-				string vs = "";
+				StringBuilder vs = new StringBuilder();
 				if (kg.variants != null)
 				{
 					foreach (InputSource v in kg.variants)
 					{
-						vs += " [axis=" + v.isAxis + " n=" + ((v.keyCode == null) ? (-1) : v.keyCode.Count) + "";
+						vs.Append(" [axis=").Append(v.isAxis).Append(" n=").Append((v.keyCode == null) ? (-1) : v.keyCode.Count);
 						if (v.keyCode != null && v.keyCode.Count > 0)
 						{
-							vs += " k0=" + (int)v.keyCode[0];
+							vs.Append(" k0=").Append((int)v.keyCode[0]);
 						}
-						vs += "]";
+						vs.Append(']');
 					}
 				}
-				Plugin.Instance?.LogInfo("[DIAG] Tactical binding #" + found + ": pressType=" + (int)kg.pressType + " variants=" + ((kg.variants == null) ? (-1) : kg.variants.Count) + vs);
+				Plugin.Instance?.LogInfo("[DIAG] Tactical binding #" + found + ": pressType=" + (int)kg.pressType + " variants=" + ((kg.variants == null) ? (-1) : kg.variants.Count) + vs.ToString());
 			}
 			Plugin.Instance?.LogInfo("[DIAG] Tactical bindings found: " + found + " of " + list.Count);
 		}
