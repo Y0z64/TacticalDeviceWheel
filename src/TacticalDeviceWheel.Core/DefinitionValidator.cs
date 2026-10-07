@@ -12,7 +12,10 @@ public static class DefinitionValidator
 	{
 		map = null;
 		reason = "Invalid definition.";
-		if (templateId == null || templateId.Length != 24 || !templateId.All(Uri.IsHexDigit) || definition == null || definition.ExpectedModes < ((!(definition.ModeResolver == "VanillaNativeVisuals")) ? 1 : 0) || definition.ExpectedModes > 64 || definition.Capabilities == null || definition.Capabilities.Count < 1 || definition.Capabilities.Count > 64)
+		// VanillaNativeVisuals is the one resolver allowed to declare zero expected modes; every
+		// other resolver needs at least one. Written out rather than as a negated ternary.
+		int minimumModes = definition?.ModeResolver == "VanillaNativeVisuals" ? 0 : 1;
+		if (templateId == null || templateId.Length != 24 || !templateId.All(Uri.IsHexDigit) || definition == null || definition.ExpectedModes < minimumModes || definition.ExpectedModes > 64 || definition.Capabilities == null || definition.Capabilities.Count < 1 || definition.Capabilities.Count > 64)
 		{
 			return false;
 		}
@@ -35,7 +38,10 @@ public static class DefinitionValidator
 		{
 			if (definition.ModeResolver == "VanillaNativeVisuals")
 			{
-				if (!(definition.LaserSpectrum != "None") || !(definition.LaserSpectrum != "VisibleOnly") || !(definition.LaserSpectrum != "InfraredOnly") || !(definition.LaserSpectrum != "Mixed"))
+				// This was four doubly-negated comparisons. It means "the spectrum is one of the
+				// four known values", which is what it now says.
+				bool knownSpectrum = definition.LaserSpectrum == "None" || definition.LaserSpectrum == "VisibleOnly" || definition.LaserSpectrum == "InfraredOnly" || definition.LaserSpectrum == "Mixed";
+				if (knownSpectrum)
 				{
 					List<NativeModeDefinition> modes = definition.Modes;
 					if ((modes == null || modes.Count <= 0) && !dictionary.Keys.Any((string t) => t != "WhiteLight" && t != "VisibleLaser" && t != "IRLaser" && t != "IRIlluminator" && t != "Rangefinder"))
@@ -47,7 +53,8 @@ public static class DefinitionValidator
 				reason = "Invalid vanilla visual profile; mode indices must come from runtime nodes.";
 				return false;
 			}
-			if (!(definition.ModeResolver != "X400NativeVisuals") && !(templateId != "56def37dd2720bec348b456a") && definition.ExpectedModes == 3 && dictionary.Count == 2 && dictionary.ContainsKey("WhiteLight") && dictionary.ContainsKey("VisibleLaser"))
+			// Same double-negation rewrite as above. X400Template already holds this literal.
+			if (definition.ModeResolver == "X400NativeVisuals" && templateId == X400Template && definition.ExpectedModes == 3 && dictionary.Count == 2 && dictionary.ContainsKey("WhiteLight") && dictionary.ContainsKey("VisibleLaser"))
 			{
 				List<NativeModeDefinition> modes2 = definition.Modes;
 				if (modes2 == null || modes2.Count <= 0)
