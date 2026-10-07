@@ -28,7 +28,9 @@ internal static class CommandPatch
 		}
 		catch (Exception e)
 		{
-			instance.Fault(e);
+			// This prefix runs on every translated command. Calling Fault() here could disable the
+			// plugin permanently, so a failure only gets logged and the original method runs.
+			instance.TransientFault("CommandPatch", e);
 			return true;
 		}
 	}

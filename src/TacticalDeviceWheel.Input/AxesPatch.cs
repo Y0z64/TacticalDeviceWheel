@@ -21,7 +21,10 @@ internal static class AxesPatch
 		}
 		catch (Exception e)
 		{
-			instance.Fault(e);
+			// This prefix is attached to PlayerOwner.TranslateAxes, which runs every frame, so a
+			// failure here could reach Fault()'s threshold in about two seconds and permanently
+			// disable the plugin. Log it and carry on instead.
+			instance.TransientFault("AxesPatch", e);
 		}
 	}
 }

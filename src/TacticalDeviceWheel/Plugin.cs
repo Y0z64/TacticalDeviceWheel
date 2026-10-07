@@ -46,6 +46,8 @@ public sealed class Plugin : BaseUnityPlugin
 
 	private int faultCount;
 
+	private int transientFaultCount;
+
 	private void Awake()
 	{
 		//IL_012b: Unknown result type (might be due to invalid IL or missing references)
@@ -105,7 +107,11 @@ public sealed class Plugin : BaseUnityPlugin
 		}
 		catch (Exception e)
 		{
-			Fault(e);
+			// Transient failure only. This used to call Fault(), which after enough hits set
+			// failed=true, nulled Input and ran Harmony.UnpatchSelf(), permanently disabling the
+			// plugin. Update runs every frame, so a per-frame exception reached that point in well
+			// under two seconds - which is why the wheel stopped opening after working once.
+			TransientFault("Update", e);
 		}
 	}
 
@@ -156,6 +162,27 @@ public sealed class Plugin : BaseUnityPlugin
 	internal void Error(string message)
 	{
 		Logger.LogError((object)message);
+	}
+
+	/// <summary>
+	///     记录一次**非致命**的运行期异常，绝不因此禁用插件。
+	///     <para>
+	///         原版走的是 <see cref="Fault" />：累计到阈值就 <c>failed = true</c>、把
+	///         <c>Input</c> 置空并 <c>Harmony.UnpatchSelf()</c>。而 <c>Update</c> 与两个
+	///         Harmony 前缀都在每帧路径上，一个每帧都抛的异常会在两秒内达标 ——
+	///         表现就是"轮盘呼出过一次之后再也呼不出来"，而且只在恰好触发那个异常时才发生。
+	///     </para>
+	///     <para>
+	///         限流：每帧异常不做限流会把日志刷爆，所以前 5 次和之后每 100 次各记一条。
+	///     </para>
+	/// </summary>
+	internal void TransientFault(string where, Exception e)
+	{
+		transientFaultCount++;
+		if (transientFaultCount <= 5 || transientFaultCount % 100 == 0)
+		{
+			Logger.LogError((object)("[TDW] " + where + " failed (non-fatal, #" + transientFaultCount + "): " + e));
+		}
 	}
 
 	internal void Fault(Exception e)
