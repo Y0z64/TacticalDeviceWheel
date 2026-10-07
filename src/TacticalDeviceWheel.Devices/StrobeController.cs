@@ -269,6 +269,14 @@ internal sealed class StrobeController
 			};
 			flag |= !Matches(entry2.Device.Component.IsActive, entry2.Device.Component.SelectedMode, target);
 		}
+		// Same reason as DeviceController.Toggle: with force=false the native path dereferences
+		// CurrentOperation, which is null when no weapon operation is in progress.
+		if (firearm.CurrentOperation == null)
+		{
+			Clear();
+			plugin.Warning("No weapon operation in progress; strobe stopped.");
+			return false;
+		}
 		try
 		{
 			if (flag && !firearm.SetLightsState(batch, false, false))
@@ -278,9 +286,27 @@ internal sealed class StrobeController
 		}
 		catch (Exception ex)
 		{
-			Clear();
-			plugin.Warning("STROBE stopped after native operation error: " + ex);
-			return false;
+			// A third-party visual postfix can throw after the component state has already been
+			// switched. Verify the actual state before tearing the strobe down: if every entry
+			// reached its target for this phase, the strobe can continue.
+			bool flag3 = true;
+			for (int num3 = 0; num3 < entries.Count; num3++)
+			{
+				Entry entry4 = entries[num3];
+				NativeTarget target3 = entry4.Lease.Desired(nextOn);
+				if (!Matches(entry4.Device.Component.IsActive, entry4.Device.Component.SelectedMode, target3))
+				{
+					flag3 = false;
+					break;
+				}
+			}
+			if (!flag3)
+			{
+				Clear();
+				plugin.Warning("STROBE stopped after native operation error: " + ex);
+				return false;
+			}
+			plugin.Debug("STROBE continuing: the native call threw but every component reached its target. " + ex.Message);
 		}
 		for (int num2 = entries.Count - 1; num2 >= 0; num2--)
 		{
