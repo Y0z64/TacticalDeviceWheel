@@ -31,10 +31,6 @@ internal sealed class IconManager : IDisposable
 
 	public Sprite Get(string name)
 	{
-		//IL_017c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0182: Expected O, but got Unknown
-		//IL_01c3: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01d2: Unknown result type (might be due to invalid IL or missing references)
 		if (string.IsNullOrEmpty(name) || name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 || name.Contains("/") || name.Contains("\\"))
 		{
 			plugin.Warning("Invalid icon key; falling back to GenericMode.");

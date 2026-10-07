@@ -6,11 +6,6 @@ internal static class StrobeCommandRules
 {
 	public static bool Yields(ECommand command)
 	{
-		//IL_0000: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0069: Expected I4, but got Unknown
-		//IL_0069: Unknown result type (might be due to invalid IL or missing references)
-		//IL_006f: Invalid comparison between Unknown and I4
 		switch ((int)command - 36)
 		{
 		default:

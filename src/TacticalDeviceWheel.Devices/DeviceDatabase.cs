@@ -30,10 +30,6 @@ internal sealed class DeviceDatabase
 
 	public void ReloadIfChanged()
 	{
-		//IL_0097: Unknown result type (might be due to invalid IL or missing references)
-		//IL_009c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00a9: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00b5: Expected O, but got Unknown
 		try
 		{
 			if (!File.Exists(path))

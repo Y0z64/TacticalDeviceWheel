@@ -78,22 +78,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private RectTransform Rect(string name, Transform parent, Vector2 size, Vector2 position)
 	{
-		//IL_0014: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0019: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0030: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0031: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0032: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0044: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0052: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0058: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0059: Unknown result type (might be due to invalid IL or missing references)
-		//IL_005f: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0060: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0068: Expected O, but got Unknown
 		GameObject val = new GameObject(name, new Type[1] { typeof(RectTransform) });
 		val.transform.SetParent(parent, false);
 		RectTransform val2 = (RectTransform)val.transform;
@@ -108,9 +92,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private Text Label(string name, Transform parent, string value, Vector2 size, Vector2 position, int fontSize)
 	{
-		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0005: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0048: Unknown result type (might be due to invalid IL or missing references)
 		Text obj = ((Component)Rect(name, parent, size, position)).gameObject.AddComponent<Text>();
 		obj.font = font;
 		obj.text = value;
@@ -126,8 +107,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private Image Picture(string name, Transform parent, Sprite sprite, Vector2 size, Vector2 position)
 	{
-		//IL_0003: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0005: Unknown result type (might be due to invalid IL or missing references)
 		Image obj = ((Component)Rect(name, parent, size, position)).gameObject.AddComponent<Image>();
 		obj.sprite = sprite;
 		obj.preserveAspect = true;
@@ -138,8 +117,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private static Color NameColor(DisplayName name)
 	{
-		//IL_0078: Unknown result type (might be due to invalid IL or missing references)
-		//IL_001f: Unknown result type (might be due to invalid IL or missing references)
 		if (!name.Rgba.HasValue)
 		{
 			return new Color(0.88f, 0.91f, 0.89f);
@@ -150,49 +127,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	public void Show(IReadOnlyList<TacticalCapability> capabilities, DisplayName weapon)
 	{
-		//IL_0031: Unknown result type (might be due to invalid IL or missing references)
-		//IL_003b: Expected O, but got Unknown
-		//IL_0063: Unknown result type (might be due to invalid IL or missing references)
-		//IL_006d: Expected O, but got Unknown
-		//IL_0090: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0097: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0099: Unknown result type (might be due to invalid IL or missing references)
-		//IL_009a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00a0: Unknown result type (might be due to invalid IL or missing references)
-		//IL_014d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0158: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0162: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0167: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01e1: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01e8: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01ed: Unknown result type (might be due to invalid IL or missing references)
-		//IL_058f: Unknown result type (might be due to invalid IL or missing references)
-		//IL_059e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_05f3: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0605: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0643: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0659: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0666: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0322: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0327: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0362: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0369: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0375: Unknown result type (might be due to invalid IL or missing references)
-		//IL_03b1: Unknown result type (might be due to invalid IL or missing references)
-		//IL_03bd: Unknown result type (might be due to invalid IL or missing references)
-		//IL_06d4: Unknown result type (might be due to invalid IL or missing references)
-		//IL_06eb: Unknown result type (might be due to invalid IL or missing references)
-		//IL_070f: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0714: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0743: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0755: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0444: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0456: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0487: Unknown result type (might be due to invalid IL or missing references)
-		//IL_049c: Unknown result type (might be due to invalid IL or missing references)
-		//IL_04bd: Unknown result type (might be due to invalid IL or missing references)
-		//IL_04ee: Unknown result type (might be due to invalid IL or missing references)
-		//IL_04fa: Unknown result type (might be due to invalid IL or missing references)
 		EnsureRoot();
 		Hide();
 		root.SetActive(true);
@@ -280,9 +214,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private void EnsureRoot()
 	{
-		//IL_0075: Unknown result type (might be due to invalid IL or missing references)
-		//IL_007f: Expected O, but got Unknown
-		//IL_00c3: Unknown result type (might be due to invalid IL or missing references)
 		if (!((object)root != null))
 		{
 			font = Font.CreateDynamicFontFromOSFont(new string[4] { "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "Arial" }, 24);
@@ -307,14 +238,6 @@ internal sealed class RadialMenuUI : IDisposable
 
 	public void Refresh(int selected, Vector2 vector)
 	{
-		//IL_0210: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01fa: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0240: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0239: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0587: Unknown result type (might be due to invalid IL or missing references)
-		//IL_058e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0598: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0535: Unknown result type (might be due to invalid IL or missing references)
 		if ((object)content == null)
 		{
 			return;

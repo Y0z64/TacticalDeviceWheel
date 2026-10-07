@@ -129,13 +129,6 @@ internal static class ModeDiagnostics
 				where (object)m != null
 				select m).Distinct().Select((Func<Material, object>)delegate(Material m)
 			{
-				//IL_001a: Unknown result type (might be due to invalid IL or missing references)
-				//IL_000d: Unknown result type (might be due to invalid IL or missing references)
-				//IL_001f: Unknown result type (might be due to invalid IL or missing references)
-				//IL_0056: Unknown result type (might be due to invalid IL or missing references)
-				//IL_005f: Unknown result type (might be due to invalid IL or missing references)
-				//IL_0068: Unknown result type (might be due to invalid IL or missing references)
-				//IL_0071: Unknown result type (might be due to invalid IL or missing references)
 				Color val = (m.HasProperty("_Color") ? m.GetColor("_Color") : Color.clear);
 				string name = ((UnityEngine.Object)m).name;
 				Shader shader6 = m.shader;
@@ -242,12 +235,6 @@ internal static class ModeDiagnostics
 			result.UnknownLaserCount = result.Lasers.Count((LaserObservation l) => l.Enabled && l.ActiveWithinMode && l.Spectrum == EmitterSpectrum.Unknown);
 			result.Lights = componentsInChildren2.Select(delegate(Light l)
 			{
-				//IL_002b: Unknown result type (might be due to invalid IL or missing references)
-				//IL_0030: Unknown result type (might be due to invalid IL or missing references)
-				//IL_00ac: Unknown result type (might be due to invalid IL or missing references)
-				//IL_00ba: Unknown result type (might be due to invalid IL or missing references)
-				//IL_00c8: Unknown result type (might be due to invalid IL or missing references)
-				//IL_00d6: Unknown result type (might be due to invalid IL or missing references)
 				NativeLightObservation nativeLightObservation = new NativeLightObservation
 				{
 					Node = RelativePath(((Component)l).transform, node),

@@ -231,9 +231,6 @@ internal sealed class StrobeController
 
 	private bool Flush(bool nextOn)
 	{
-		//IL_0149: Unknown result type (might be due to invalid IL or missing references)
-		//IL_017e: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0180: Unknown result type (might be due to invalid IL or missing references)
 		for (int num = entries.Count - 1; num >= 0; num--)
 		{
 			Entry entry = entries[num];

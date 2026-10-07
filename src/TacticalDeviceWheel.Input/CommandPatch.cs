@@ -11,7 +11,6 @@ internal static class CommandPatch
 	[HarmonyPrefix]
 	private static bool Prefix(GamePlayerOwner __instance, ECommand command, ref InputNode.ETranslateResult __result)
 	{
-		//IL_001e: Unknown result type (might be due to invalid IL or missing references)
 		Plugin instance = Plugin.Instance;
 		if (instance?.Input == null)
 		{

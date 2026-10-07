@@ -49,8 +49,6 @@ internal sealed class RadialMenuController
 
 	public void Open(Player player, FirearmController controller)
 	{
-		//IL_0020: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0025: Unknown result type (might be due to invalid IL or missing references)
 		Close();
 		firearm = controller;
 		entries = scanner.Scan(controller);
@@ -70,13 +68,6 @@ internal sealed class RadialMenuController
 
 	public void Move(float x, float y)
 	{
-		//IL_0011: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0018: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0032: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0037: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0041: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0046: Unknown result type (might be due to invalid IL or missing references)
-		//IL_009d: Unknown result type (might be due to invalid IL or missing references)
 		if (IsOpen)
 		{
 			PollReadouts();
@@ -88,7 +79,6 @@ internal sealed class RadialMenuController
 
 	public bool Commit(Player player, FirearmController controller)
 	{
-		//IL_005b: Unknown result type (might be due to invalid IL or missing references)
 		if (!IsOpen || firearm != controller || !HasSelection)
 		{
 			return false;
@@ -110,8 +100,6 @@ internal sealed class RadialMenuController
 
 	public void Close()
 	{
-		//IL_0030: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0035: Unknown result type (might be due to invalid IL or missing references)
 		IsOpen = false;
 		firearm = null;
 		entries.Clear();

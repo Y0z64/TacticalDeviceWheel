@@ -50,8 +50,6 @@ public sealed class Plugin : BaseUnityPlugin
 
 	private void Awake()
 	{
-		//IL_012b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0135: Expected O, but got Unknown
 		Instance = this;
 		Options = new Configuration(Config);
 		RootPath = Path.GetFullPath(Path.GetDirectoryName(Info.Location));

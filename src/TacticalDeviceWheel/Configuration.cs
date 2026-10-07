@@ -36,8 +36,6 @@ internal sealed class Configuration
 
 	private static ConfigDescription Description(string category, string name, string chinese, AcceptableValueBase range = null)
 	{
-		//IL_001a: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0020: Expected O, but got Unknown
 		return new ConfigDescription(chinese, range, new object[2]
 		{
 			new DisplayNameAttribute(name),

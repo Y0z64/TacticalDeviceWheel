@@ -20,11 +20,6 @@ internal sealed class DeviceController
 
 	public bool Toggle(Player player, FirearmController firearm, TacticalCapability capability)
 	{
-		//IL_01cf: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01fc: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01fe: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0209: Unknown result type (might be due to invalid IL or missing references)
-		//IL_020b: Unknown result type (might be due to invalid IL or missing references)
 		if (!NativeSettings.IsToggle || capability == null || (object)player == null || !player.IsYourPlayer || player.HandsController != firearm || player.HealthController == null || !player.HealthController.IsAlive)
 		{
 			return false;

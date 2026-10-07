@@ -118,8 +118,6 @@ internal sealed class InputController
 
 	private void Begin(GamePlayerOwner candidate)
 	{
-		//IL_0045: Unknown result type (might be due to invalid IL or missing references)
-		//IL_004f: Expected O, but got Unknown
 		if (plugin.Options.DebugLogging.Value)
 		{
 			plugin.Debug("[DIAG] Begin gate: active=" + gesture.Active + " draining=" + draining + " valid=" + Valid(candidate) + " modifiers=" + ModifiersHeld + " plainT=" + NativeSettings.HasPlainTBinding());
@@ -163,8 +161,6 @@ internal sealed class InputController
 		{
 			plugin.Debug("[DIAG] command seen: " + (int)command + " (" + command.ToString() + ")");
 		}
-		//IL_0002: Unknown result type (might be due to invalid IL or missing references)
-		//IL_002c: Unknown result type (might be due to invalid IL or missing references)
 		bool num = ProcessCommand(candidate, command);
 		if (num && (object)((candidate != null) ? ((PlayerOwner)candidate).Player : null) != null && ((PlayerOwner)candidate).Player.IsYourPlayer && StrobeCommandRules.Yields(command))
 		{
@@ -175,13 +171,6 @@ internal sealed class InputController
 
 	private bool ProcessCommand(GamePlayerOwner candidate, ECommand command)
 	{
-		//IL_00a6: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00a9: Invalid comparison between Unknown and I4
-		//IL_0054: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00b8: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00be: Invalid comparison between Unknown and I4
-		//IL_00c0: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00c3: Invalid comparison between Unknown and I4
 		if (replaying)
 		{
 			return true;
@@ -229,8 +218,6 @@ internal sealed class InputController
 
 	private void Replay(GamePlayerOwner candidate, ECommand command)
 	{
-		//IL_0008: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0009: Unknown result type (might be due to invalid IL or missing references)
 		replaying = true;
 		try
 		{
