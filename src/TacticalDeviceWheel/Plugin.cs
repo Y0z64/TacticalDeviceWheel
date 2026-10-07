@@ -145,23 +145,23 @@ public sealed class Plugin : BaseUnityPlugin
 	{
 		if (Options.DebugLogging.Value)
 		{
-			Logger.LogInfo((object)message);
+			Logger.LogInfo(message);
 		}
 	}
 
 	internal void LogInfo(string message)
 	{
-		Logger.LogInfo((object)message);
+		Logger.LogInfo(message);
 	}
 
 	internal void Warning(string message)
 	{
-		Logger.LogWarning((object)message);
+		Logger.LogWarning(message);
 	}
 
 	internal void Error(string message)
 	{
-		Logger.LogError((object)message);
+		Logger.LogError(message);
 	}
 
 	/// <summary>
@@ -181,7 +181,7 @@ public sealed class Plugin : BaseUnityPlugin
 		transientFaultCount++;
 		if (transientFaultCount <= 5 || transientFaultCount % 100 == 0)
 		{
-			Logger.LogError((object)("[TDW] " + where + " failed (non-fatal, #" + transientFaultCount + "): " + e));
+			Logger.LogError("[TDW] " + where + " failed (non-fatal, #" + transientFaultCount + "): " + e);
 		}
 	}
 
@@ -192,7 +192,7 @@ public sealed class Plugin : BaseUnityPlugin
 		faultCount++;
 		if (faultCount <= 3 || faultCount % 10 == 0)
 		{
-			Logger.LogError((object)("TDW fault #" + faultCount + ": " + e));
+			Logger.LogError("TDW fault #" + faultCount + ": " + e);
 		}
 		try
 		{
@@ -201,14 +201,14 @@ public sealed class Plugin : BaseUnityPlugin
 		}
 		catch (Exception ex)
 		{
-			Logger.LogError((object)ex);
+			Logger.LogError(ex);
 		}
 		if (faultCount < 50 || failed)
 		{
 			return;
 		}
 		failed = true;
-		Logger.LogError((object)"TDW disabled after 50 faults.");
+		Logger.LogError("TDW disabled after 50 faults.");
 		try
 		{
 			Harmony obj = harmony;
@@ -219,7 +219,7 @@ public sealed class Plugin : BaseUnityPlugin
 		}
 		catch (Exception ex)
 		{
-			Logger.LogError((object)ex);
+			Logger.LogError(ex);
 		}
 		Input = null;
 	}
