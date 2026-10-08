@@ -25,7 +25,7 @@ internal static class ServerAnnouncement
 			ServerLogRequest val = new ServerLogRequest
 			{
 				Source = "Tactical Device Wheel",
-				Message = "模组：Tactical Device Wheel 版本0.4.2 (GUID: com.xunhuaizhuo.tdw | targets SPT: 4.1.x) 作者：巡怀浊 / xunhuaizhuo 已加载（客户端）",
+				Message = "模组：Tactical Device Wheel 版本0.4.3 (GUID: com.xunhuaizhuo.tdw | targets SPT: 4.1.x) 作者：巡怀浊 / xunhuaizhuo 已加载（客户端）",
 				Level = (EServerLogLevel)3,
 				Color = (EServerLogTextColor)37,
 				BackgroundColor = (EServerLogBackgroundColor)49
@@ -41,7 +41,7 @@ internal static class ServerAnnouncement
 				throw new InvalidOperationException("Server rejected the log request: " + (string)val2["errmsg"]);
 			}
 			Status = "sent";
-			info("TDW SERVER INFO sent: 模组：Tactical Device Wheel 版本0.4.2 (GUID: com.xunhuaizhuo.tdw | targets SPT: 4.1.x) 作者：巡怀浊 / xunhuaizhuo 已加载（客户端）");
+			info("TDW SERVER INFO sent: 模组：Tactical Device Wheel 版本0.4.3 (GUID: com.xunhuaizhuo.tdw | targets SPT: 4.1.x) 作者：巡怀浊 / xunhuaizhuo 已加载（客户端）");
 		}
 		catch (Exception ex)
 		{
