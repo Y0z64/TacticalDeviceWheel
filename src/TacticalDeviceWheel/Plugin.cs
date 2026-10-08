@@ -13,12 +13,19 @@ using UnityEngine;
 
 namespace TacticalDeviceWheel;
 
-[BepInPlugin("com.xunhuaizhuo.tdw", "Tactical Device Wheel", "0.4.1")]
+[BepInPlugin("com.xunhuaizhuo.tdw", "Tactical Device Wheel", "0.4.2")]
 [BepInProcess("EscapeFromTarkov.exe")]
 [BepInDependency("com.SPT.core")]
 public sealed class Plugin : BaseUnityPlugin
 {
 	internal static Plugin Instance;
+
+	/// <summary>
+	/// Module version id of the Assembly-CSharp build this port was verified against
+	/// (EFT 0.16.9.40743). This is the strict half of the startup check: the patches bind to the
+	/// game's API surface, so a different game build is refused outright.
+	/// </summary>
+	internal const string VerifiedGameMvid = "cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7";
 
 	internal Configuration Options;
 
@@ -55,9 +62,14 @@ public sealed class Plugin : BaseUnityPlugin
 		RootPath = Path.GetFullPath(Path.GetDirectoryName(Info.Location));
 		try
 		{
-			if (AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault((Assembly a) => a.GetName().Name == "spt-core")?.GetName().Version != new System.Version(4, 1, 5, 0) || typeof(Player).Module.ModuleVersionId != new Guid("cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7"))
+			// Every SPT 4.1.x ships the same EFT 0.16.9.40743 game build, so the API surface this
+			// port binds to is identical across the series; only the server patch level differs.
+			// The game side is therefore pinned strictly by the module version id below, while the
+			// SPT check only has to confirm the 4.1 series rather than one exact patch release.
+			var sptCoreVersion = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault((Assembly a) => a.GetName().Name == "spt-core")?.GetName().Version;
+			if (sptCoreVersion == null || sptCoreVersion.Major != 4 || sptCoreVersion.Minor != 1 || typeof(Player).Module.ModuleVersionId != new Guid(VerifiedGameMvid))
 			{
-				Warning("TDW disabled: requires the verified SPT 4.1.5 / EFT 40743 assembly build.");
+				Warning("TDW disabled: requires SPT 4.1.x on EFT 0.16.9.40743 (spt-core found: " + (sptCoreVersion?.ToString() ?? "not loaded") + ").");
 				return;
 			}
 			Icons = new IconManager(this);
@@ -70,7 +82,7 @@ public sealed class Plugin : BaseUnityPlugin
 			Input = new InputController(this);
 			harmony = new Harmony("com.xunhuaizhuo.tdw");
 			harmony.PatchAll(typeof(Plugin).Assembly);
-			LogInfo("TDW 0.4.1 loaded. SPT 4.1.5 / EFT 0.16.9.40743. Native Hold bypass enabled.");
+			LogInfo("TDW 0.4.2 loaded. SPT " + sptCoreVersion + " / EFT 0.16.9.40743. Native Hold bypass enabled.");
 			LogInfo("TDW root: " + RootPath + ". Scan reports are always enabled. LMB toggles without closing; RMB closes; CloseOnTRelease is configurable.");
 			LogInfo("TDW DLL: " + Info.Location + "; assembly=" + typeof(Plugin).Assembly.GetName().Version?.ToString() + "; MVID=" + typeof(Plugin).Module.ModuleVersionId);
 			LogInfo("TDW FEATURES: 功能图标=" + Options.FunctionIconScale.Value + "; 设备图标=" + Options.DeviceIconScale.Value + "; 手电爆闪选项=" + Options.EnableStrobe.Value + " / " + Options.StrobeFrequency.Value + " Hz; 动态测距=" + Options.EnableRangeReadout.Value + " / " + Options.RangeReadoutFrequency.Value + " Hz. F12 新增 6 项配置。");

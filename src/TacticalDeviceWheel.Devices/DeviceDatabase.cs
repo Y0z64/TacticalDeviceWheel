@@ -28,6 +28,24 @@ internal sealed class DeviceDatabase
 		this.path = path;
 	}
 
+	/// <summary>
+	/// True when <paramref name="version"/> names an SPT 4.1.x release.
+	///
+	/// The database is bound to the series rather than to one patch release: every 4.1.x ships the
+	/// same EFT game build, and the definitions are keyed by item template id, which does not move
+	/// between patch releases. Accepting the whole series is what lets a single devices.json work
+	/// from 4.1.0 through 4.1.6 and later patches.
+	/// </summary>
+	private static bool IsSupportedSptVersion(string version)
+	{
+		if (string.IsNullOrEmpty(version))
+		{
+			return false;
+		}
+		string[] parts = version.Split('.');
+		return parts.Length >= 2 && parts[0] == "4" && parts[1] == "1";
+	}
+
 	public void ReloadIfChanged()
 	{
 		try
@@ -57,9 +75,9 @@ internal sealed class DeviceDatabase
 				MaxDepth = 20,
 				TypeNameHandling = (TypeNameHandling)0
 			});
-			if (databaseFile == null || (databaseFile.SchemaVersion != 1 && databaseFile.SchemaVersion != 2) || databaseFile.SptVersion != "4.1.5" || databaseFile.Devices == null)
+			if (databaseFile == null || (databaseFile.SchemaVersion != 1 && databaseFile.SchemaVersion != 2) || !IsSupportedSptVersion(databaseFile.SptVersion) || databaseFile.Devices == null)
 			{
-				throw new InvalidDataException("Expected schemaVersion=2, sptVersion=4.1.5 and devices object.");
+				throw new InvalidDataException("Expected schemaVersion=2, a 4.1.x sptVersion and a devices object (got sptVersion=" + (databaseFile?.SptVersion ?? "null") + ").");
 			}
 			Dictionary<string, DeviceDefinition> dictionary = new Dictionary<string, DeviceDefinition>(StringComparer.Ordinal);
 			foreach (KeyValuePair<string, DeviceDefinition> device in databaseFile.Devices)

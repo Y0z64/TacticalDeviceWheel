@@ -1,644 +1,1011 @@
 {
-  "schemaVersion": 2,
-  "sptVersion": "4.1.5",
-  "devices": {
-    "544909bb4bdc2d6f028b4577": {
-      "name": "L3Harris AN/PEQ-15 tactical device",
-      "expectedModes": 4,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": [],
-      "exclusiveGroups": [
-        [
-          "VisibleLaser",
-          "IRLaser"
-        ],
-        [
-          "VisibleLaser",
-          "IRIlluminator"
-        ]
-      ],
-      "ignoreStatusIndicators": true
+ "schemaVersion": 2,
+ "sptVersion": "4.1.6",
+ "devices": {
+  "544909bb4bdc2d6f028b4577": {
+   "name": "L3Harris AN/PEQ-15 tactical device",
+   "expectedModes": 4,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
     },
-    "560d657b4bdc2da74d8b4572": {
-      "name": "Zenit Klesch-2P flashlight with laser",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
     },
-    "56def37dd2720bec348b456a": {
-      "name": "SureFire X400 Ultra tactical flashlight with laser",
-      "expectedModes": 3,
-      "evidence": "User screenshot/feedback on 0.2.0 confirms separate white-light and visible-laser sectors work. Native mode order remains discovered from the exact X400 runtime nodes.",
-      "modeResolver": "X400NativeVisuals",
-      "capabilities": [
-        {
-          "id": "white-light",
-          "type": "WhiteLight",
-          "label": "白光",
-          "iconKey": "WhiteLight",
-          "labelEn": "White light"
-        },
-        {
-          "id": "visible-laser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "iconKey": "VisibleLaser",
-          "labelEn": "Visible laser"
-        }
-      ],
-      "modes": []
-    },
-    "57d17c5e2459775a5c57d17d": {
-      "name": "Ultrafire WF-501B flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "57fd23e32459772d0805bcf1": {
-      "name": "Holosun LS321 Tactical device",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "59d790f486f77403cb06aec6": {
-      "name": "Armytek Predator Pro v3 XHP35 HI flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "5a5f1ce64f39f90b401987bc": {
-      "name": "Zenit Klesch-2IKS IR illuminator with laser",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "InfraredOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "5a7b483fe899ef0016170d15": {
-      "name": "SureFire XC1 tactical flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "5a800961159bd4315e3a1657": {
-      "name": "Glock GTL 21 tactical flashlight with laser",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "5b07dd285acfc4001754240d": {
-      "name": "Steiner LAS/TAC 2 tactical flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "5b3a337e5acfc4704b4a19a0": {
-      "name": "Zenit Klesch-2U tactical flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "5bffcf7a0db83400232fea79": {
-      "name": "TT PM-Laser TT-206 side grips with laser sight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "5c06595c0db834001a66af6c": {
-      "name": "L3Harris LA-5B/PEQ tactical device",
-      "expectedModes": 4,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": [],
-      "exclusiveGroups": [
-        [
-          "VisibleLaser",
-          "IRLaser"
-        ],
-        [
-          "VisibleLaser",
-          "IRIlluminator"
-        ]
-      ],
-      "ignoreStatusIndicators": true
-    },
-    "5c079ed60db834001a66b372": {
-      "name": "TT DLP Tactical Precision Laser Sight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "5c5952732e2216398b5abda2": {
-      "name": "Zenit Perst-3 tactical device",
-      "expectedModes": 4,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": [],
-      "exclusiveGroups": [
-        [
-          "VisibleLaser",
-          "IRLaser"
-        ],
-        [
-          "VisibleLaser",
-          "IRIlluminator"
-        ]
-      ],
-      "ignoreStatusIndicators": true
-    },
-    "5cc9c20cd7f00c001336c65d": {
-      "name": "NcSTAR Tactical Blue Laser",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "5d10b49bd7ad1a1a560708b0": {
-      "name": "Insight AN/PEQ-2 tactical device",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "InfraredOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "5d2369418abbc306c62e0c80": {
-      "name": "Steiner DBAL-PL tactical device",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "61605d88ffa6e502ac5e7eeb": {
-      "name": "Wilcox RAPTAR ES Tactical Rangefinder",
-      "expectedModes": 5,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Every captured active mode owns a RangeFinder/Text (TMP) display. Activating a laser/illuminator automatically includes Rangefinder; turning off the display while emitters remain on has no native mode and is blocked.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        },
-        {
-          "id": "Rangefinder",
-          "type": "Rangefinder",
-          "label": "测距显示",
-          "labelEn": "Range display",
-          "iconKey": "Rangefinder"
-        }
-      ],
-      "modes": [],
-      "exclusiveGroups": [
-        [
-          "VisibleLaser",
-          "IRLaser"
-        ],
-        [
-          "VisibleLaser",
-          "IRIlluminator"
-        ]
-      ],
-      "requiredWhileActive": [
-        "Rangefinder"
-      ]
-    },
-    "626becf9582c3e319310b837": {
-      "name": "Insight WMX200 tactical flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "6272370ee4013c5d7e31f418": {
-      "name": "Olight Baldr Pro tactical flashlight with laser",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "6272379924e29f06af4d5ecb": {
-      "name": "Olight Baldr Pro tactical flashlight with laser (Tan)",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        },
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
-    },
-    "644a3df63b0b6f03e101e065": {
-      "name": "B.E. Meyers MAWL-C1+ tactical device",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "Mixed",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        },
-        {
-          "id": "IRLaser",
-          "type": "IRLaser",
-          "label": "IR 激光",
-          "labelEn": "IR laser",
-          "iconKey": "IRLaser"
-        },
-        {
-          "id": "IRIlluminator",
-          "type": "IRIlluminator",
-          "label": "IR 补光",
-          "labelEn": "IR illuminator",
-          "iconKey": "IRIlluminator"
-        }
-      ],
-      "modes": []
-    },
-    "646f62fee779812413011ab7": {
-      "name": "Zenit 2D flashlight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "None",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "WhiteLight",
-          "type": "WhiteLight",
-          "label": "白光",
-          "labelEn": "White light",
-          "iconKey": "WhiteLight"
-        }
-      ],
-      "modes": []
-    },
-    "661f8995c341ea101e0d33e8": {
-      "name": "PM PM-Laser grip with laser sight",
-      "expectedModes": 0,
-      "modeResolver": "VanillaNativeVisuals",
-      "laserSpectrum": "VisibleOnly",
-      "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
-      "capabilities": [
-        {
-          "id": "VisibleLaser",
-          "type": "VisibleLaser",
-          "label": "可见激光",
-          "labelEn": "Visible laser",
-          "iconKey": "VisibleLaser"
-        }
-      ],
-      "modes": []
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
     }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "560d657b4bdc2da74d8b4572": {
+   "name": "Zenit Klesch-2P flashlight with laser",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "56def37dd2720bec348b456a": {
+   "name": "SureFire X400 Ultra tactical flashlight with laser",
+   "expectedModes": 3,
+   "evidence": "User screenshot/feedback on 0.2.0 confirms separate white-light and visible-laser sectors work. Native mode order remains discovered from the exact X400 runtime nodes.",
+   "modeResolver": "X400NativeVisuals",
+   "capabilities": [
+    {
+     "id": "white-light",
+     "type": "WhiteLight",
+     "label": "白光",
+     "iconKey": "WhiteLight",
+     "labelEn": "White light"
+    },
+    {
+     "id": "visible-laser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "iconKey": "VisibleLaser",
+     "labelEn": "Visible laser"
+    }
+   ],
+   "modes": []
+  },
+  "57d17c5e2459775a5c57d17d": {
+   "name": "Ultrafire WF-501B flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "57fd23e32459772d0805bcf1": {
+   "name": "Holosun LS321 Tactical device",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "59d790f486f77403cb06aec6": {
+   "name": "Armytek Predator Pro v3 XHP35 HI flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "5a5f1ce64f39f90b401987bc": {
+   "name": "Zenit Klesch-2IKS IR illuminator with laser",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "InfraredOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "5a7b483fe899ef0016170d15": {
+   "name": "SureFire XC1 tactical flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "5a800961159bd4315e3a1657": {
+   "name": "Glock GTL 21 tactical flashlight with laser",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "5b07dd285acfc4001754240d": {
+   "name": "Steiner LAS/TAC 2 tactical flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "5b3a337e5acfc4704b4a19a0": {
+   "name": "Zenit Klesch-2U tactical flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "5bffcf7a0db83400232fea79": {
+   "name": "TT PM-Laser TT-206 side grips with laser sight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "5c06595c0db834001a66af6c": {
+   "name": "L3Harris LA-5B/PEQ tactical device",
+   "expectedModes": 4,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "5c079ed60db834001a66b372": {
+   "name": "TT DLP Tactical Precision Laser Sight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "5c5952732e2216398b5abda2": {
+   "name": "Zenit Perst-3 tactical device",
+   "expectedModes": 4,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Point lights at mode_NNN/indicator_NNN/light with range=0.01 are local status indicators, not white-light capabilities; only this observed small-light structure is excluded.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "5cc9c20cd7f00c001336c65d": {
+   "name": "NcSTAR Tactical Blue Laser",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "5d10b49bd7ad1a1a560708b0": {
+   "name": "Insight AN/PEQ-2 tactical device",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "InfraredOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "5d2369418abbc306c62e0c80": {
+   "name": "Steiner DBAL-PL tactical device",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "61605d88ffa6e502ac5e7eeb": {
+   "name": "Wilcox RAPTAR ES Tactical Rangefinder",
+   "expectedModes": 5,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "User SPT 4.0.13 / TDW 0.3.1 last-scan.json received 2026-09-09 contains all native mode nodes, VIS/IR LaserBeam materials, IkLight and range-display ownership. Mode indices are still obtained from runtime order. Mode sets show visible laser excludes IR laser/illuminator; IR laser plus illuminator is valid. These constraints are validated against the runtime map before use. Every captured active mode owns a RangeFinder/Text (TMP) display. Activating a laser/illuminator automatically includes Rangefinder; turning off the display while emitters remain on has no native mode and is blocked.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    },
+    {
+     "id": "Rangefinder",
+     "type": "Rangefinder",
+     "label": "测距显示",
+     "labelEn": "Range display",
+     "iconKey": "Rangefinder"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "requiredWhileActive": [
+    "Rangefinder"
+   ]
+  },
+  "626becf9582c3e319310b837": {
+   "name": "Insight WMX200 tactical flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "66b0eb4bafb8d2d107ee6134": {
+   "name": "Insight WMX200 tactical flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "User SPT 4.1.6 / EFT 40743 / TDW 0.4.4 last-scan.json received 2026-09-25 (VSS instance) contains two native mode nodes: mode_001/light_000/Spotlight with WhiteLightCount=1 (55m), mode_002/IR_000/Spotlight with InfraredLightCount=1 (35m, IkLight). No laser nodes. Mode indices come from runtime order. [NODE:0.4.5-WMX200]",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "6272370ee4013c5d7e31f418": {
+   "name": "Olight Baldr Pro tactical flashlight with laser",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "6272379924e29f06af4d5ecb": {
+   "name": "Olight Baldr Pro tactical flashlight with laser (Tan)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "644a3df63b0b6f03e101e065": {
+   "name": "B.E. Meyers MAWL-C1+ tactical device",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": []
+  },
+  "646f62fee779812413011ab7": {
+   "name": "Zenit 2D flashlight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    }
+   ],
+   "modes": []
+  },
+  "661f8995c341ea101e0d33e8": {
+   "name": "PM PM-Laser grip with laser sight",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "VisibleOnly",
+   "evidence": "Identity and permitted device families: official SPT server-csharp tag 4.0.13 en.json. No mode indices are supplied. Mode topology and Light/LaserBeam/IkLight come from the current client instance. IR/visible asset-name tags are runtime inference, not shader-code verification. Unmarked mixed lasers reject the map; low/high power and rangefinding are not inferred.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    }
+   ],
+   "modes": []
+  },
+  "672e2e75d122de1a20db31a5": {
+   "name": "SureFire X300U-A Flashlight (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e759342d416e10caa10": {
+   "name": "Surefire M640U-BK-PRO Flashlight offset (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "67b1eb6d91f8e59bc799beb1": {
+   "name": "Surefire M640U-BK-PRO FDE Flashlight offset (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e757a1e6eeae1841933": {
+   "name": "INFORCE WMLX GEN 2 (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e7505c0ffbaf790db95": {
+   "name": "SureFire flashlight with pressure pad (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e756174d5e5e9f677ee": {
+   "name": "SureFire flashlight with pressure pad FDE (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e75ec4a3496b64346c5": {
+   "name": "Surefire M640U-BK-PRO Flashlight (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "None",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from Insight WMX200 (626becf9582c3e319310b837, WhiteLight+IRIlluminator). Capability family inherited from clone source; mode indices and Light/LaserBeam topology come from the current client instance at runtime. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "WhiteLight",
+     "type": "WhiteLight",
+     "label": "白光",
+     "labelEn": "White light",
+     "iconKey": "WhiteLight"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e75071e71f8e4a59286": {
+   "name": "Wilcox tactical device (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from L3Harris AN/PEQ-15 (544909bb4bdc2d6f028b4577, VisibleLaser+IRLaser+IRIlluminator). Capability family inherited from clone source; VIS excludes IR laser/illuminator; mode indices come from runtime nodes. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e75f2da844c65b50d6a": {
+   "name": "Wilcox tactical device Black (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from L3Harris AN/PEQ-15 (544909bb4bdc2d6f028b4577, VisibleLaser+IRLaser+IRIlluminator). Capability family inherited from clone source; VIS excludes IR laser/illuminator; mode indices come from runtime nodes. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e75e352ae625453519b": {
+   "name": "FTX tactical device (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from L3Harris AN/PEQ-15 (544909bb4bdc2d6f028b4577, VisibleLaser+IRLaser+IRIlluminator). Capability family inherited from clone source; VIS excludes IR laser/illuminator; mode indices come from runtime nodes. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
+  },
+  "672e2e75ecdecad1471639ad": {
+   "name": "LWRCI Railskin (TGC)",
+   "expectedModes": 0,
+   "modeResolver": "VanillaNativeVisuals",
+   "laserSpectrum": "Mixed",
+   "evidence": "TGC-NG custom item (modTGC_items.json) cloned from L3Harris AN/PEQ-15 (544909bb4bdc2d6f028b4577, VisibleLaser+IRLaser+IRIlluminator). Capability family inherited from clone source; VIS excludes IR laser/illuminator; mode indices come from runtime nodes. Patch 0.4.4-TGC-DB 2026-09-24.",
+   "capabilities": [
+    {
+     "id": "VisibleLaser",
+     "type": "VisibleLaser",
+     "label": "可见激光",
+     "labelEn": "Visible laser",
+     "iconKey": "VisibleLaser"
+    },
+    {
+     "id": "IRLaser",
+     "type": "IRLaser",
+     "label": "IR 激光",
+     "labelEn": "IR laser",
+     "iconKey": "IRLaser"
+    },
+    {
+     "id": "IRIlluminator",
+     "type": "IRIlluminator",
+     "label": "IR 补光",
+     "labelEn": "IR illuminator",
+     "iconKey": "IRIlluminator"
+    }
+   ],
+   "modes": [],
+   "exclusiveGroups": [
+    [
+     "VisibleLaser",
+     "IRLaser"
+    ],
+    [
+     "VisibleLaser",
+     "IRIlluminator"
+    ]
+   ],
+   "ignoreStatusIndicators": true
   }
+ }
 }
