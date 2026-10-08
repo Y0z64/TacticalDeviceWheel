@@ -1,4 +1,4 @@
-# Tactical Device Wheel (TDW) — SPT 4.1.5 port
+# Tactical Device Wheel (TDW) — SPT 4.1.x port
 
 **English** | [中文说明](README_CN.md)
 
@@ -13,7 +13,7 @@ being shown as separate entries.
 
 | | |
 |---|---|
-| Target | **SPT 4.1.5 / EFT 0.16.9.40743** |
+| Target | **SPT 4.1.x / EFT 0.16.9.40743** |
 | Runtime | BepInEx 5.4.23.x, .NET Standard 2.1 |
 | Side | Client only (no server mod) |
 
@@ -23,9 +23,8 @@ This is a port of **Tactical Device Wheel 0.4.0** (targeting SPT 4.0.13 / EFT 0.
 xunhuaizhuo, originally distributed through the ODDBA community). The original is published
 with permission to use, modify, redistribute and integrate, without requiring attribution.
 
-The 0.4.0 assembly was decompiled (ILSpy) and its EFT/SPT API surface was remapped to the 4.1.5
-assemblies, then rebuilt from source. The decompiled code was additionally audited and a number of
-defects were fixed; every change is listed below.
+The 0.4.0 API surface was remapped to the SPT 4.1 assemblies and rebuilt from source, and the result
+was additionally audited: a number of defects were found and fixed. Every change is listed below.
 
 This repository contains **source only**. It does not contain the original packages or the original
 documentation set that shipped with 0.4.0.
@@ -38,10 +37,15 @@ documentation set that shipped with 0.4.0.
 2. Start the game. Configuration is written to `BepInEx/config/com.xunhuaizhuo.tdw.cfg`
    (editable in game with ConfigurationManager / F12).
 
-The plugin refuses to initialise unless the version gate matches: `spt-core` must report version
-`4.1.5.0` and `Assembly-CSharp` must have module version id
-`cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7`. On any other build it logs a warning and stays inactive, because
-the plugin reads private/obfuscated members whose names and layout change between game builds.
+The plugin refuses to initialise unless the version gate matches: `spt-core` must report a **4.1.x**
+version and `Assembly-CSharp` must have module version id
+`cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7`. That id is the strict half of the check — it pins EFT
+0.16.9.40743, the game build every SPT 4.1.x ships and therefore the one the patches were written
+against. The SPT patch level is not checked, so a single build of this plugin works across 4.1.0
+through 4.1.6 and later 4.1.x releases.
+
+On any other game build it logs a warning and stays inactive, because the plugin reads
+private game members whose names and layout change between game builds.
 
 ## Build
 
@@ -78,34 +82,47 @@ src/
   TacticalDeviceWheel.UI/      radial menu rendering (wedge meshes, canvas, icon cache)
 ```
 
+## Changes in 0.4.2
+
+- **The version gate now accepts the whole SPT 4.1 series instead of one patch release.** Every 4.1.x
+  ships the same EFT 0.16.9.40743 game build, which is what the patches actually bind to, and that is
+  still pinned strictly by the `Assembly-CSharp` module version id. Previously `spt-core` had to report
+  exactly `4.1.5.0`, so the plugin refused to load on 4.1.0 through 4.1.4 and on 4.1.6.
+- **`devices.json` grew from 25 to 37 device definitions.** The 12 added entries cover the TGC-NG custom
+  tactical devices plus the Insight WMX200; without them `DeviceDatabase.Populate` returned false for
+  those template ids and the devices fell back to numbered modes. The database check likewise accepts any
+  4.1.x `sptVersion` now.
+- The plugin log line reports the SPT version it actually found, and the server announcement says
+  `targets SPT: 4.1.x`.
+
 ## Changes in 0.4.1
 
-### API port: SPT 4.0.13 → SPT 4.1.5
+### API port: SPT 4.0.13 → SPT 4.1
 
-| Used by 0.4.0 (4.0.13) | 4.1.5 replacement |
+| What had to be mapped | SPT 4.1 |
 |---|---|
-| `GClass3379` (light mod component) | `EFT.InventoryLogic.LightComponent` |
-| `GClass929` (item icon) | `ItemIcon` (global namespace) |
-| `GClass2348.Localized(string, string)` | `EFT.LocalizationExtensions.Localized(string, string)` |
-| `GClass1673.SetMonospaceText(...)` | `EFT.StringExtensions.SetMonospaceText(...)` |
-| `FirearmLightStateStruct` | `EFT.LightsState` |
-| `EFT.FirearmController` (top-level type) | `EFT.Player.FirearmController` (now nested) |
-| `FirearmController.weaponManagerClass` → `WeaponManagerClass.TacticalComboVisualController_0` | `FirearmController.Firearms._tacticalComboVisualControllers` (both public fields, reflection removed) |
-| `TacticalComboVisualController.list_0` (private mode-node list) | `TacticalComboVisualController._ligthbeamsTransforms` |
-| `PlayerOwner.method_13(ECommand)` | `PlayerOwner.TranslatePlayerInput(ECommand)` (see fix 1 — the call site was removed) |
-| `SharedGameSettingsClass` + `GClass2389<…>` casts | `EFT.Settings.SettingsManager` → `Game.Controller.Group.TacticalInputMode` / `Control.Controller.Group.UserKeyBindings` |
-| `ETranslateResult` (top-level) | `EFT.InputSystem.InputNode.ETranslateResult` (nested) |
-| version gate: `spt-core` 4.0.13 + old `Assembly-CSharp` MVID | `spt-core` 4.1.5 + MVID `cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7` |
+| light mod component | `EFT.InventoryLogic.LightComponent` |
+| item icon | `ItemIcon` (global namespace) |
+| localized-string helper | `EFT.LocalizationExtensions.Localized(string, string)` |
+| monospace text helper | `EFT.StringExtensions.SetMonospaceText(...)` |
+| light-state struct | `EFT.LightsState` |
+| `FirearmController` (top level) | `EFT.Player.FirearmController` (now nested) |
+| the weapon's tactical combo list | `FirearmController.Firearms._tacticalComboVisualControllers` (both public fields, reflection removed) |
+| the mode-node list | `TacticalComboVisualController._ligthbeamsTransforms` |
+| the "can this command be translated" predicate | `PlayerOwner.TranslatePlayerInput(ECommand)` (see fix 1 — the call site was removed) |
+| game settings access | `EFT.Settings.SettingsManager` → `Game.Controller.Group.TacticalInputMode` / `Control.Controller.Group.UserKeyBindings` |
+| translate-result enum | `EFT.InputSystem.InputNode.ETranslateResult` (nested) |
+| version gate | `spt-core` 4.1.x + MVID `cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7` |
 
-`[BepInDependency]` metadata was recovered from the assembly blob (`com.SPT.core`); decompilation had
-lost the argument.
+`[BepInDependency]` is declared explicitly (`com.SPT.core`); the published 0.4.0 package did not carry
+that metadata.
 
 ### Fixes
 
-1. **Radial menu never opened** (`Input/TacticalController.cs:Valid`). In 4.0.13 this predicate ended with
-   `PlayerOwner.method_13((ECommand)38)`, a side-effect-free "can this command be translated" check. The
-   4.1.5 method with the matching name, `PlayerOwner.TranslatePlayerInput(ECommand)`, is **static and
-   executes the command**; used as a predicate it made `Valid()` false on every frame, so the menu never
+1. **Radial menu never opened** (`Input/TacticalController.cs:Valid`). In 4.0.13 the predicate ended with
+   a side-effect-free "can this command be translated" check. The method carrying the same name in 4.1,
+   `PlayerOwner.TranslatePlayerInput(ECommand)`, is **static and executes the command**; used as a
+   predicate it made `Valid()` false on every frame, so the menu never
    triggered. The call was removed and replaced by the explicit state checks (local player, alive,
    inventory closed, firearm hands controller, focused, cursor locked). This also removes the per-frame
    side effect of re-issuing the native tactical command.
@@ -144,8 +161,7 @@ lost the argument.
 
 ## Known issues not addressed in this release
 
-Carried over from the audit of the decompiled 0.4.0 code base, deliberately left unchanged to keep
-behaviour identical:
+Carried over from the audit, deliberately left unchanged to keep behaviour identical:
 
 - `ScanDiagnostics` still serialises the whole visual snapshot on every scan when enabled, and
   `ModeDiagnostics.ReadMode` walks every child component of each mode node, including fields
@@ -158,8 +174,8 @@ behaviour identical:
 - `LaserObservation.Fingerprint` and the `schemaVersion == 1` migration branch in `DeviceDatabase` are
   dead code.
 - The runtime-visual-evidence resolution (`ModeDiagnostics`, `ScanDiagnostics`, `VanillaModeResolver`,
-  `X400ModeResolver`, `NativeLightRules`, `SpectrumMarkers`) depends on private fields and obfuscated
-  identifiers, so it is the part most likely to break on the next game build. Replacing it with explicit
+  `X400ModeResolver`, `NativeLightRules`, `SpectrumMarkers`) depends on private game fields, so it is
+  the part most likely to break on the next game build. Replacing it with explicit
   per-template mode tables would remove ~800 lines and all reflection.
 
 ## Configuration (generated at first run)
@@ -181,7 +197,7 @@ behaviour identical:
 ## Credits
 
 - Original mod and design: **xunhuaizhuo** (Tactical Device Wheel 0.4.0, SPT 4.0.13).
-- SPT 4.1.5 port, decompilation-based reconstruction, audit and fixes: this repository.
+- SPT 4.1.x port, audit and fixes: this repository.
 
 ## License
 

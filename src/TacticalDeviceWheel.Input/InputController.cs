@@ -80,8 +80,8 @@ internal sealed class InputController
 		bool c8 = Application.isFocused;
 		bool c9 = (int)Cursor.lockState == 1 && !Cursor.visible;
 		bool ok = c1 && c2 && c3 && c4 && c5 && c6 && c7 && c8 && c9;
-		// 0.4.1: 4.0.13 这里调用的是 PlayerOwner.method_13（只校验、无副作用）；
-		// 4.1.5 对应名是静态的 TranslatePlayerInput，它会真正执行命令，不能当校验用，故移除。
+		// 0.4.1: 4.0.13 这里调用的是一个"只校验、无副作用"的判定；
+		// 4.1 对应名是静态的 TranslatePlayerInput，它会真正执行命令，不能当校验用，故移除。
 		if (!ok && plugin.Options.DebugLogging.Value)
 		{
 			string diag = "c1=" + c1 + " c2=" + c2 + " yours=" + c3 + " state=" + c4 + " hp=" + c5 + " inv=" + c6 + " hands=" + c7 + " focused=" + c8 + " cursor=" + c9;

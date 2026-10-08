@@ -1,4 +1,4 @@
-# Tactical Device Wheel (TDW) — SPT 4.1.5 移植版
+# Tactical Device Wheel (TDW) — SPT 4.1.x 移植版
 
 [English](README.md) | **中文说明**
 
@@ -11,7 +11,7 @@
 
 | | |
 |---|---|
-| 目标版本 | **SPT 4.1.5 / EFT 0.16.9.40743** |
+| 目标版本 | **SPT 4.1.x / EFT 0.16.9.40743** |
 | 运行环境 | BepInEx 5.4.23.x，.NET Standard 2.1 |
 | 端别 | 仅客户端（无服务端 mod） |
 
@@ -20,8 +20,8 @@
 本仓库是 **Tactical Device Wheel 0.4.0**（目标 SPT 4.0.13 / EFT 0.16.9.40087，作者 **xunhuaizhuo**，
 最初发布于 ODDBA 社区）的移植版。原版发布时即声明可自由使用、修改、转载与整合，且不要求署名。
 
-0.4.0 的程序集经 ILSpy 反编译后，其 EFT/SPT API 调用面被重新映射到 4.1.5 的程序集，再自源码重新编译。
-反编译代码另外经过一轮审计，修复了若干缺陷；所有改动逐条列在下面。
+0.4.0 的 API 调用面被重新映射到 SPT 4.1 的程序集，再自源码重新编译；产物另外经过一轮审计，
+发现并修复了若干缺陷。所有改动逐条列在下面。
 
 本仓库**只包含源码**，不含原版分发包，也不含 0.4.0 随附的文档集。
 
@@ -32,9 +32,13 @@
    所在目录解析这些文件的。
 2. 启动游戏。配置会生成在 `BepInEx/config/com.xunhuaizhuo.tdw.cfg`（游戏内可用 ConfigurationManager / F12 修改）。
 
-插件带有版本门闸：只有 `spt-core` 报告版本 `4.1.5.0`，且 `Assembly-CSharp` 的模块版本 id 为
-`cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7` 时才会初始化。其它版本上只记录一条警告并保持停用状态，
-因为插件读取的是私有/混淆成员，这些名称与布局在不同游戏构建之间会变化。
+插件带有版本门闸：`spt-core` 需报告 **4.1.x** 版本，且 `Assembly-CSharp` 的模块版本 id 必须为
+`cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7`。**后者才是严格的那一半**——它锁定了 EFT 0.16.9.40743，
+也就是所有 SPT 4.1.x 使用的游戏构建，因而也是补丁所针对的那一份。SPT 的补丁号不参与校验，
+所以同一份插件可在 4.1.0 至 4.1.6 以及更晚的 4.1.x 上运行。
+
+其它游戏构建上只记录一条警告并保持停用状态，因为插件读取的是游戏私有成员，这些名称与布局在不同
+游戏构建之间会变化。
 
 ## 编译
 
@@ -59,7 +63,7 @@ dotnet build -c Release -p:GameDir="D:\SPT" ^
 
 ```
 TacticalDeviceWheel.csproj     构建定义（以 GameDir 参数化）
-devices.json                   设备/模式数据库，schema 2（25 条定义）
+devices.json                   设备/模式数据库，schema 2（37 条定义）
 resources/icons/               运行时加载的 PNG + SVG 图标
 src/
   TacticalDeviceWheel/         插件入口、配置、版本信息
@@ -70,31 +74,41 @@ src/
   TacticalDeviceWheel.UI/      轮盘绘制（扇区网格、Canvas、图标缓存）
 ```
 
+## 0.4.2 变更
+
+- **版本门闸从"单个补丁版本"放宽为"整个 SPT 4.1 系列"。** 所有 4.1.x 使用的都是同一份 EFT
+  0.16.9.40743 游戏构建，而补丁真正绑定的是它——那部分仍由 `Assembly-CSharp` 的模块版本 id 严格锁定。
+  此前要求 `spt-core` 恰好是 `4.1.5.0`，导致插件在 4.1.0 至 4.1.4 以及 4.1.6 上拒绝加载。
+- **`devices.json` 从 25 条定义增加到 37 条。** 新增的 12 条覆盖 TGC-NG 的自定义战术设备与
+  Insight WMX200；没有它们时 `DeviceDatabase.Populate` 对相应的 template id 返回 false，
+  设备会退化成"模式 N"。数据库校验同样改为接受任意 4.1.x 的 `sptVersion`。
+- 插件日志现在会报告实际检测到的 SPT 版本，服务端公告改为 `targets SPT: 4.1.x`。
+
 ## 0.4.1 变更
 
-### API 移植：SPT 4.0.13 → SPT 4.1.5
+### API 移植：SPT 4.0.13 → SPT 4.1
 
-| 0.4.0 使用的（4.0.13） | 4.1.5 的替代 |
+| 需要映射的东西 | SPT 4.1 |
 |---|---|
-| `GClass3379`（光模组件） | `EFT.InventoryLogic.LightComponent` |
-| `GClass929`（物品图标） | `ItemIcon`（全局命名空间） |
-| `GClass2348.Localized(string, string)` | `EFT.LocalizationExtensions.Localized(string, string)` |
-| `GClass1673.SetMonospaceText(...)` | `EFT.StringExtensions.SetMonospaceText(...)` |
-| `FirearmLightStateStruct` | `EFT.LightsState` |
-| `EFT.FirearmController`（顶层类型） | `EFT.Player.FirearmController`（现在是嵌套类） |
-| `FirearmController.weaponManagerClass` → `WeaponManagerClass.TacticalComboVisualController_0` | `FirearmController.Firearms._tacticalComboVisualControllers`（两者都是 public 字段，已去掉反射） |
-| `TacticalComboVisualController.list_0`（私有模式节点列表） | `TacticalComboVisualController._ligthbeamsTransforms` |
-| `PlayerOwner.method_13(ECommand)` | `PlayerOwner.TranslatePlayerInput(ECommand)`（见修复 1——该调用点已移除） |
-| `SharedGameSettingsClass` + `GClass2389<…>` 强转 | `EFT.Settings.SettingsManager` → `Game.Controller.Group.TacticalInputMode` / `Control.Controller.Group.UserKeyBindings` |
-| `ETranslateResult`（顶层） | `EFT.InputSystem.InputNode.ETranslateResult`（嵌套） |
-| 版本门闸：`spt-core` 4.0.13 + 旧 `Assembly-CSharp` MVID | `spt-core` 4.1.5 + MVID `cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7` |
+| 光模组件 | `EFT.InventoryLogic.LightComponent` |
+| 物品图标 | `ItemIcon`（全局命名空间） |
+| 本地化字符串助手 | `EFT.LocalizationExtensions.Localized(string, string)` |
+| 等宽文本助手 | `EFT.StringExtensions.SetMonospaceText(...)` |
+| 灯光状态结构 | `EFT.LightsState` |
+| `FirearmController`（顶层类型） | `EFT.Player.FirearmController`（现在是嵌套类） |
+| 武器的战术组合列表 | `FirearmController.Firearms._tacticalComboVisualControllers`（两者都是 public 字段，已去掉反射） |
+| 模式节点列表 | `TacticalComboVisualController._ligthbeamsTransforms` |
+| "该命令能否被翻译"判定 | `PlayerOwner.TranslatePlayerInput(ECommand)`（见修复 1——该调用点已移除） |
+| 游戏设置访问 | `EFT.Settings.SettingsManager` → `Game.Controller.Group.TacticalInputMode` / `Control.Controller.Group.UserKeyBindings` |
+| 翻译结果枚举 | `EFT.InputSystem.InputNode.ETranslateResult`（嵌套） |
+| 版本门闸 | `spt-core` 4.1.x + MVID `cc2d80b0-6d5b-4cb1-a581-6d2cc901d4c7` |
 
-`[BepInDependency]` 的参数从程序集元数据中恢复（`com.SPT.core`）；反编译过程丢失了该参数。
+`[BepInDependency]` 显式声明为 `com.SPT.core`；已发布的 0.4.0 分发包没有带上这项元数据。
 
 ### 修复
 
-1. **轮盘完全不弹出**（`Input/InputController.cs:Valid`）。4.0.13 中该判定的最后一句是
-   `PlayerOwner.method_13((ECommand)38)`，一个**只校验、无副作用**的方法。4.1.5 中名字对应的
+1. **轮盘完全不弹出**（`Input/InputController.cs:Valid`）。4.0.13 中该判定的最后一句是一个
+   **只校验、无副作用**的"该命令能否被翻译"判定。4.1 中名字对应的
    `PlayerOwner.TranslatePlayerInput(ECommand)` 是**静态方法且会真正执行命令**；当作判定使用时，
    `Valid()` 每帧都返回 false，于是轮盘永不触发。现已移除该调用，改为显式状态判断（本地玩家、存活、
    背包未打开、手持枪械、窗口聚焦、鼠标被锁定）。这同时消除了"每帧重复下发原生战术设备命令"的副作用。
@@ -128,7 +142,7 @@ src/
 
 ## 本版本未处理的已知问题
 
-以下问题来自对反编译 0.4.0 代码的审计，为保持行为一致，本版本**有意未改动**：
+以下问题来自审计阶段，为保持行为一致，本版本**有意未改动**：
 
 - 启用扫描报告时，`ScanDiagnostics` 仍会在每次扫描时序列化整份视觉快照；`ModeDiagnostics.ReadMode`
   会遍历每个模式节点的所有子组件，其中 `NodePaths`、`ComponentTypes`、`MaterialDetails` 只用于报告。
@@ -138,7 +152,7 @@ src/
 - `IconManager` 会把加载失败的图标缓存为 `null`，之后每次查询都重试读盘，且没有内置兜底图标。
 - `LaserObservation.Fingerprint` 与 `DeviceDatabase` 中 `schemaVersion == 1` 的迁移分支是死代码。
 - 运行时视觉证据解析链（`ModeDiagnostics`、`ScanDiagnostics`、`VanillaModeResolver`、`X400ModeResolver`、
-  `NativeLightRules`、`SpectrumMarkers`）依赖私有字段与混淆标识符，是下次游戏更新最容易失效的部分。
+  `NativeLightRules`、`SpectrumMarkers`）依赖游戏私有字段，是下次游戏更新最容易失效的部分。
   若改为按模板 ID 显式列出模式表，可删掉约 800 行并消除全部反射。
 
 ## 配置项（首次运行生成）
@@ -160,7 +174,7 @@ src/
 ## 鸣谢
 
 - 原版设计与实现：**xunhuaizhuo**（Tactical Device Wheel 0.4.0，SPT 4.0.13）。
-- SPT 4.1.5 移植、基于反编译的重建、审计与修复：本仓库。
+- SPT 4.1.x 移植、审计与修复：本仓库。
 
 ## 许可证
 
