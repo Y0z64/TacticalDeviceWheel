@@ -82,6 +82,17 @@ src/
   TacticalDeviceWheel.UI/      radial menu rendering (wedge meshes, canvas, icon cache)
 ```
 
+## Changes in 0.4.3
+
+Documentation only. No behaviour change, and no code change beyond the version number.
+
+- **Corrected the "fix 5" entry under 0.4.1.** It claimed `DefinitionValidator` had a condition that was
+  always true and left `laserSpectrum` unvalidated, and that 0.4.1 fixed it. That was wrong. Comparing
+  this build against the 0.4.7 release shows both forms route "unrecognised spectrum" and "failed
+  validation" to the same rejection, so the check always worked and `laserSpectrum` was always
+  validated. The 0.4.1 rewrite changed how the condition reads, not what it does; the entry under
+  0.4.1 now says so instead of claiming a defect that never existed.
+
 ## Changes in 0.4.2
 
 - **The version gate now accepts the whole SPT 4.1 series instead of one patch release.** Every 4.1.x
@@ -137,8 +148,14 @@ that metadata.
    and not draining, and `Cancel()` never cleared it. If the owner object was destroyed (weapon change,
    death) the plugin kept consuming the fire/ADS commands for the rest of the session. `Cancel()` now
    clears it and the assignment is guarded.
-5. **Dead validation** (`Core/DefinitionValidator.cs`). A condition composed of four negated string
-   comparisons was always true, so `laserSpectrum` values were never validated.
+5. **`DefinitionValidator` conditions rewritten** (`Core/DefinitionValidator.cs`). The `laserSpectrum`
+   check was written as four negated comparisons with the two branches swapped, and the
+   `minimumModes` value came from a negated ternary. Both are now stated positively.
+
+   **This is a readability change only.** The two forms are equivalent and validation behaves exactly
+   as it did before. An earlier revision of this document described it as fixing a condition that was
+   "always true" and left `laserSpectrum` unvalidated; comparing this build against the 0.4.7 release
+   shows that was wrong and the check always worked. See "Changes in 0.4.3" below.
 6. **Plugin was skipped by BepInEx** (`Plugin.cs`). `BepInPlugin.Version` is a `System.Version`, so a
    semver-suffixed string makes BepInEx 5.4.23.5 drop the plugin (`Skipping type [...] because its
    version is invalid`). The attribute now carries a numeric version (`0.4.1`); the readable version is
