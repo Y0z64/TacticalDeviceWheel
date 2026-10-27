@@ -48,6 +48,7 @@ internal sealed class ScanDiagnostics
 				diagnosticsPath = fullPath,
 				debugLogging = plugin.Options.DebugLogging.Value,
 				closeOnTRelease = plugin.Options.CloseOnTRelease.Value,
+				selectOnRelease = plugin.Options.SelectOnRelease.Value,
 				uiLanguage = "SimplifiedChinese",
 				functionIconScale = plugin.Options.FunctionIconScale.Value,
 				deviceIconScale = plugin.Options.DeviceIconScale.Value,

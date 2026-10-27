@@ -34,6 +34,8 @@ internal sealed class InputController
 
 	private bool draining;
 
+	private bool clickedThisOpen;
+
 	public bool WheelOpen
 	{
 		get
@@ -266,7 +268,7 @@ internal sealed class InputController
 		if (WheelOpen)
 		{
 			plugin.Menu.Move(UnityEngine.Input.GetAxisRaw("Mouse X"), UnityEngine.Input.GetAxisRaw("Mouse Y"));
-			switch (WheelClick.Decide(key, UnityEngine.Input.GetMouseButtonDown(0), UnityEngine.Input.GetMouseButtonDown(1), plugin.Menu.HasSelection, plugin.Options.CloseOnTRelease.Value))
+			switch (WheelClick.Decide(key, UnityEngine.Input.GetMouseButtonDown(0), UnityEngine.Input.GetMouseButtonDown(1), plugin.Menu.HasSelection, plugin.Options.CloseOnTRelease.Value, plugin.Options.SelectOnRelease.Value, clickedThisOpen))
 			{
 			case WheelClickAction.Confirm:
 			{
@@ -274,6 +276,7 @@ internal sealed class InputController
 				try
 				{
 					flag = plugin.Menu.Commit(((PlayerOwner)owner).Player, firearm);
+					clickedThisOpen = true;
 				}
 				catch (Exception e)
 				{
@@ -283,6 +286,20 @@ internal sealed class InputController
 					return;
 				}
 				plugin.Debug("TDW LMB TOGGLE applied=" + flag + "; menu remains open");
+				return;
+			}
+			case WheelClickAction.ConfirmAndClose:
+			{
+				try
+				{
+					bool applied = plugin.Menu.Commit(((PlayerOwner)owner).Player, firearm);
+					plugin.Debug("TDW T RELEASE TOGGLE applied=" + applied);
+				}
+				catch (Exception e)
+				{
+					plugin.TransientFault("InputController.ReleaseCommit", e);
+				}
+				Cancel(suppressUntilRelease: true);
 				return;
 			}
 			default:
@@ -296,6 +313,7 @@ internal sealed class InputController
 		switch (gesture.Step(Time.realtimeSinceStartupAsDouble, key, plugin.Options.CloseOnTRelease.Value))
 		{
 		case GestureResult.Open:
+			clickedThisOpen = false;
 			try
 			{
 				plugin.Menu.Open(((PlayerOwner)owner).Player, firearm);

@@ -203,7 +203,8 @@ Carried over from the audit, deliberately left unchanged to keep behaviour ident
 | General / DebugLogging | false | Verbose input, mapping, icon and operation logs |
 | General / WriteScanReport | false | Write `diagnostics/last-scan.json` on every wheel open |
 | Input / HoldThresholdSeconds | 0.2 | Hold time before the wheel opens |
-| Input / CloseOnTRelease | true | Close the wheel when T is released; off keeps it open (T never selects) |
+| Input / CloseOnTRelease | true | Close the wheel when T is released; off keeps it open (T only selects with SelectOnRelease) |
+| Input / SelectOnRelease | false | With CloseOnTRelease on: releasing T toggles the hovered sector, unless you already clicked during that open |
 | Input / CenterDeadZone | 0.2 | Radial dead zone |
 | Input / MouseSensitivity | 0.1 | Mouse-to-selection gain |
 | UI / Scale, FunctionIconScale, DeviceIconScale | 1 | Wheel and icon sizing |

@@ -14,6 +14,8 @@ internal sealed class Configuration
 
 	public readonly ConfigEntry<bool> CloseOnTRelease;
 
+	public readonly ConfigEntry<bool> SelectOnRelease;
+
 	public readonly ConfigEntry<float> HoldThreshold;
 
 	public readonly ConfigEntry<float> DeadZone;
@@ -50,6 +52,7 @@ internal sealed class Configuration
 		WriteScanReport = file.Bind<bool>("General", "WriteScanReport", false, Description("常规", "写入扫描报告", "每次打开轮盘时把完整设备扫描结果写入 diagnostics/last-scan.json。默认关闭，避免每次开轮盘都产生磁盘写入。"));
 		GenericModes = file.Bind<bool>("Compatibility", "ShowUnknownModes", true, Description("兼容性", "显示未映射模式", "未完成映射的设备按其实际功能显示模式扇区；关闭则隐藏这些设备。Mod 新增设备保持此兼容方式。"));
 		CloseOnTRelease = file.Bind<bool>("Input", "CloseOnTRelease", true, Description("输入", "松开 T 关闭菜单", "开启：松开 T 关闭菜单，不执行选择。关闭：松开 T 后菜单继续保持。两种模式下左键切换后均不关闭，可连续操作；右键或 Esc 关闭。短按 T 保持原版行为。"));
+		SelectOnRelease = file.Bind<bool>("Input", "SelectOnRelease", false, Description("输入", "松开 T 切换悬停项 / Select on release", "需开启“松开 T 关闭菜单”。开启后，若本次打开期间未左键点击，松开 T 会切换鼠标悬停的扇区并关闭轮盘；点击过则松 T 仅关闭。\nRequires CloseOnTRelease. If nothing was clicked while the wheel was open, releasing T toggles the hovered sector and closes the wheel; after a click, releasing T only closes it."));
 		HoldThreshold = file.Bind<float>("Input", "HoldThresholdSeconds", 0.2f, Description("输入", "长按阈值（秒）", "长按 T 达到此时间后打开轮盘；0.20 秒即 200 毫秒。提前松开仅执行一次原版操作。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.05f, 1f)));
 		DeadZone = file.Bind<float>("Input", "CenterDeadZone", 0.2f, Description("输入", "中心死区", "虚拟方向向量的初始死区（半径比例），防止刚打开时误选；回到中心保留最后一个有效选择。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.05f, 0.8f)));
 		Sensitivity = file.Bind<float>("Input", "MouseSensitivity", 0.1f, Description("输入", "鼠标灵敏度", "鼠标移动到虚拟选择向量的倍率。数值越高，选择所需的鼠标位移越少。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.01f, 0.5f)));

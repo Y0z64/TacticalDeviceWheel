@@ -179,7 +179,8 @@ src/
 | General / DebugLogging | false | 详细的输入、映射、图标与操作日志 |
 | General / WriteScanReport | false | 每次打开轮盘写出 `diagnostics/last-scan.json` |
 | Input / HoldThresholdSeconds | 0.2 | 长按多久后打开轮盘 |
-| Input / CloseOnTRelease | true | 松开 T 即关闭；关闭此项则松 T 不关（T 不作为选择键） |
+| Input / CloseOnTRelease | true | 松开 T 即关闭；关闭此项则松 T 不关（T 仅在开启 SelectOnRelease 时作为选择键） |
+| Input / SelectOnRelease | false | 需开启 CloseOnTRelease：松开 T 切换悬停扇区；本次打开期间已点击则仅关闭 |
 | Input / CenterDeadZone | 0.2 | 轮盘中心死区 |
 | Input / MouseSensitivity | 0.1 | 鼠标到选择向量的增益 |
 | UI / Scale、FunctionIconScale、DeviceIconScale | 1 | 轮盘与图标尺寸 |

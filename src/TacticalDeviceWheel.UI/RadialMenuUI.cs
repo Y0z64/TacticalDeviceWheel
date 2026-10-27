@@ -204,7 +204,7 @@ internal sealed class RadialMenuUI : IDisposable
 		center.resizeTextMaxSize = 20;
 		centerDevice = Label("SelectionDevice", (Transform)(object)wheel, "", new Vector2(num2 * 1.8f, 46f), new Vector2(0f, (0f - num2) * 0.38f), 16);
 		((Graphic)Label("Title", (Transform)(object)wheel, "TDW " + plugin.Info.Metadata.Version + "  /  " + weapon.PlainText, new Vector2(radius * 2f, 40f), new Vector2(0f, radius + 30f), 18)).color = NameColor(weapon);
-		Label("Hint", (Transform)(object)wheel, L("Move to select · LMB toggle · RMB close · ", "移动鼠标选择 · 左键切换 · 右键关闭 · ") + (plugin.Options.CloseOnTRelease.Value ? L("Release T: close", "松 T 关闭") : L("Release T: stay open", "松 T 保持")), new Vector2(790f, 32f), new Vector2(0f, 0f - radius - 26f), 16);
+		Label("Hint", (Transform)(object)wheel, L("Move to select · LMB toggle · RMB close · ", "移动鼠标选择 · 左键切换 · 右键关闭 · ") + (plugin.Options.CloseOnTRelease.Value ? (plugin.Options.SelectOnRelease.Value ? L("Release T: toggle & close", "松 T 切换并关闭") : L("Release T: close", "松 T 关闭")) : L("Release T: stay open", "松 T 保持")), new Vector2(790f, 32f), new Vector2(0f, 0f - radius - 26f), 16);
 		indicator = Rect("VirtualDirection", (Transform)(object)wheel, new Vector2(7f, 7f), Vector2.zero);
 		Image obj4 = ((Component)indicator).gameObject.AddComponent<Image>();
 		((Graphic)obj4).color = new Color(1f, 0.84f, 0.48f);

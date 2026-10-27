@@ -4,5 +4,6 @@ public enum WheelClickAction
 {
 	None,
 	Confirm,
-	Cancel
+	Cancel,
+	ConfirmAndClose
 }
