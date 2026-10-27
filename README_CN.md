@@ -183,6 +183,7 @@ src/
 | Input / CenterDeadZone | 0.2 | 轮盘中心死区 |
 | Input / MouseSensitivity | 0.1 | 鼠标到选择向量的增益 |
 | UI / Scale、FunctionIconScale、DeviceIconScale | 1 | 轮盘与图标尺寸 |
+| UI / Language | SimplifiedChinese | 轮盘文字语言：`SimplifiedChinese` 或 `English` |
 | Flashlight / EnableStrobe、StrobeFrequencyHz | **false**、4 | 开启时才向轮盘添加白光爆闪扇区；关闭时不存在该扇区。频率仅在开启时生效 |
 | Rangefinder / ShowReadout、ReadoutRefreshHz | true、4 | 轮盘内的实时测距读数 |
 | Compatibility / ShowUnknownModes | true | 未映射设备以数字模式显示 |

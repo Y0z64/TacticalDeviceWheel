@@ -95,59 +95,56 @@ internal sealed class TacticalCapability
 		}
 	}
 
-	public string ActionHint
+	public string ActionHint(UiLanguage language)
 	{
-		get
+		StrobeController strobes = Device.Strobes;
+		if (strobes != null && strobes.IsRestoring(Device.InstanceId))
 		{
-			StrobeController strobes = Device.Strobes;
-			if (strobes != null && strobes.IsRestoring(Device.InstanceId))
-			{
-				return "正在恢复原状态\n等待原版武器操作结束";
-			}
-			if (TargetKind == "Strobe")
-			{
-				if (!IsOn)
-				{
-					if (!CanToggle)
-					{
-						return "无法在保留其他功能时爆闪";
-					}
-					return "左键：启动爆闪\n关闭轮盘后继续";
-				}
-				return "左键：停止爆闪\n恢复启动前状态";
-			}
-			bool flag = Device.Strobes?.IsRunning(Device.InstanceId) ?? false;
-			if (flag && Type == "WhiteLight")
-			{
-				return "左键：停止爆闪并常亮";
-			}
-			string text = (IsOn ? "左键：关闭" : "左键：开启");
-			if (flag)
-			{
-				text = "左键：停止爆闪后切换";
-			}
-			if (TargetKind == "NativeMode")
-			{
-				return text + "\n该设备尚未建立功能映射";
-			}
-			if (!TryTarget(out var target))
-			{
-				if (!IsLinked)
-				{
-					return "原版无对应组合";
-				}
-				return "测距随设备联动\n先关闭激光/补光";
-			}
-			if (target.AutomaticallyDisabledMask != 0L)
-			{
-				text = text + "\n将关闭：" + Names(target.AutomaticallyDisabledMask);
-			}
-			if (target.AutomaticallyEnabledMask != 0L)
-			{
-				text = text + "\n联动开启：" + Names(target.AutomaticallyEnabledMask);
-			}
-			return text;
+			return Localization.Pick(language, "Restoring previous state\nWaiting for the weapon action to finish", "正在恢复原状态\n等待原版武器操作结束");
 		}
+		if (TargetKind == "Strobe")
+		{
+			if (!IsOn)
+			{
+				if (!CanToggle)
+				{
+					return Localization.Pick(language, "Cannot strobe while keeping the other functions on", "无法在保留其他功能时爆闪");
+				}
+				return Localization.Pick(language, "LMB: start strobe\nKeeps going after the wheel closes", "左键：启动爆闪\n关闭轮盘后继续");
+			}
+			return Localization.Pick(language, "LMB: stop strobe\nRestores the previous state", "左键：停止爆闪\n恢复启动前状态");
+		}
+		bool flag = Device.Strobes?.IsRunning(Device.InstanceId) ?? false;
+		if (flag && Type == "WhiteLight")
+		{
+			return Localization.Pick(language, "LMB: stop strobe and stay on", "左键：停止爆闪并常亮");
+		}
+		string text = (IsOn ? Localization.Pick(language, "LMB: turn off", "左键：关闭") : Localization.Pick(language, "LMB: turn on", "左键：开启"));
+		if (flag)
+		{
+			text = Localization.Pick(language, "LMB: stop strobe, then toggle", "左键：停止爆闪后切换");
+		}
+		if (TargetKind == "NativeMode")
+		{
+			return text + Localization.Pick(language, "\nThis device has no function mapping yet", "\n该设备尚未建立功能映射");
+		}
+		if (!TryTarget(out var target))
+		{
+			if (!IsLinked)
+			{
+				return Localization.Pick(language, "No matching vanilla mode", "原版无对应组合");
+			}
+			return Localization.Pick(language, "Rangefinder is linked to the device\nTurn off the laser/illuminator first", "测距随设备联动\n先关闭激光/补光");
+		}
+		if (target.AutomaticallyDisabledMask != 0L)
+		{
+			text = text + Localization.Pick(language, "\nWill turn off: ", "\n将关闭：") + Names(target.AutomaticallyDisabledMask, language);
+		}
+		if (target.AutomaticallyEnabledMask != 0L)
+		{
+			text = text + Localization.Pick(language, "\nAlso turns on: ", "\n联动开启：") + Names(target.AutomaticallyEnabledMask, language);
+		}
+		return text;
 	}
 
 	public string DisplayLabel(UiLanguage language)
@@ -169,10 +166,10 @@ internal sealed class TacticalCapability
 		return false;
 	}
 
-	private string Names(ulong mask)
+	private string Names(ulong mask, UiLanguage language)
 	{
-		return string.Join("、", from c in Device.Capabilities
+		return string.Join(Localization.Pick(language, ", ", "、"), from c in Device.Capabilities
 			where (c.Mask & mask) != 0
-			select c.DisplayLabel(UiLanguage.SimplifiedChinese));
+			select c.DisplayLabel(language));
 	}
 }

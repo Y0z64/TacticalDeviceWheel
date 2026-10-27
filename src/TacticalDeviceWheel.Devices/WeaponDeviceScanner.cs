@@ -82,7 +82,7 @@ internal sealed class WeaponDeviceScanner
 				{
 					tacticalDevice.RangeReadout = new RangeReadout(tacticalDevice, (from m in visualSnapshot.Devices.Where((DeviceVisuals v) => v.InstanceId == pair.Key && v.TemplateId == tpl).SelectMany((DeviceVisuals v) => v.Modes)
 						group m by m.Mode).ToDictionary((IGrouping<int, VisualMode> g) => g.Key, (IGrouping<int, VisualMode> g) => g.SelectMany((VisualMode m) => m.RangeSources).ToArray()));
-					tacticalDevice.RangeReadout.Poll(Time.realtimeSinceStartupAsDouble, plugin.Options.EnableRangeReadout.Value, plugin.Options.RangeReadoutFrequency.Value);
+					tacticalDevice.RangeReadout.Poll(Time.realtimeSinceStartupAsDouble, plugin.Options.EnableRangeReadout.Value, plugin.Options.RangeReadoutFrequency.Value, plugin.Options.Language.Value);
 				}
 				if (flag && plugin.Options.EnableStrobe.Value && tacticalDevice.Capabilities.Any((TacticalCapability c) => c.Type == "WhiteLight"))
 				{

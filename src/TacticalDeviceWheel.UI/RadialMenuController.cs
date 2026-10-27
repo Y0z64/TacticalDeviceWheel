@@ -94,7 +94,7 @@ internal sealed class RadialMenuController
 		double realtimeSinceStartupAsDouble = Time.realtimeSinceStartupAsDouble;
 		foreach (RangeReadout readout in readouts)
 		{
-			readout.Poll(realtimeSinceStartupAsDouble, plugin.Options.EnableRangeReadout.Value, plugin.Options.RangeReadoutFrequency.Value);
+			readout.Poll(realtimeSinceStartupAsDouble, plugin.Options.EnableRangeReadout.Value, plugin.Options.RangeReadoutFrequency.Value, plugin.Options.Language.Value);
 		}
 	}
 

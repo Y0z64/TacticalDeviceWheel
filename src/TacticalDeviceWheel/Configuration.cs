@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using BepInEx.Configuration;
+using TacticalDeviceWheel.Core;
 
 namespace TacticalDeviceWheel;
 
@@ -25,6 +26,8 @@ internal sealed class Configuration
 	public readonly ConfigEntry<float> FunctionIconScale;
 
 	public readonly ConfigEntry<float> DeviceIconScale;
+
+	public readonly ConfigEntry<UiLanguage> Language;
 
 	public readonly ConfigEntry<float> StrobeFrequency;
 
@@ -56,6 +59,7 @@ internal sealed class Configuration
 		Scale = file.Bind<float>("UI", "Scale", 1f, Description("界面", "轮盘大小", "调整轮盘大小，并限制在屏幕范围内。下次打开轮盘时生效。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.6f, 1.4f)));
 		FunctionIconScale = file.Bind<float>("UI", "FunctionIconScale", 1f, Description("界面", "功能图标大小", "白光、激光、补光、测距等功能图标的大小倍率；受扇区空间限制，下次打开生效。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.5f, 2f)));
 		DeviceIconScale = file.Bind<float>("UI", "DeviceIconScale", 1f, Description("界面", "设备图标大小", "EFT 原版物品缩略图及其备用图标的大小倍率；与功能图标独立，受扇区空间限制，下次打开生效。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(0.5f, 2f)));
+		Language = file.Bind<UiLanguage>("UI", "Language", UiLanguage.SimplifiedChinese, Description("界面", "界面语言 / Language", "轮盘文字使用的语言。下次打开轮盘时生效。\nLanguage used for the wheel's text. Takes effect the next time the wheel opens."));
 		EnableStrobe = file.Bind<bool>("Flashlight", "EnableStrobe", false, Description("手电爆闪", "显示手电爆闪选项", "给已识别白光功能的设备增加独立爆闪扇区。点击启动/停止，关闭轮盘后继续；关闭后轮盘不再显示爆闪扇区。不会自动启动。"));
 		StrobeFrequency = file.Bind<float>("Flashlight", "StrobeFrequencyHz", 4f, Description("手电爆闪", "爆闪频率（赫兹）", "每秒完整亮灭循环次数；4 表示每秒亮灭 4 次。多个设备合并提交，每周期两次状态更新，不触发切换动画，不补执行卡帧期间错过的闪烁。", (AcceptableValueBase)(object)new AcceptableValueRange<float>(1f, 8f)));
 		EnableRangeReadout = file.Bind<bool>("Rangefinder", "ShowReadout", true, Description("测距读数", "显示动态测距读数", "在轮盘测距扇区及选中提示中显示原版测距仪当前读值。只在轮盘打开时读取缓存文本组件，不额外发射射线；关闭设备显示关闭，无目标显示无读数。"));

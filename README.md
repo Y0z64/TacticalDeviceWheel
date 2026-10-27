@@ -207,6 +207,7 @@ Carried over from the audit, deliberately left unchanged to keep behaviour ident
 | Input / CenterDeadZone | 0.2 | Radial dead zone |
 | Input / MouseSensitivity | 0.1 | Mouse-to-selection gain |
 | UI / Scale, FunctionIconScale, DeviceIconScale | 1 | Wheel and icon sizing |
+| UI / Language | SimplifiedChinese | Wheel text language: `SimplifiedChinese` or `English` |
 | Flashlight / EnableStrobe, StrobeFrequencyHz | **false**, 4 | While enabled, adds the white-light strobe sector to the wheel; while disabled the sector is not created. Rate applies when enabled |
 | Rangefinder / ShowReadout, ReadoutRefreshHz | true, 4 | Live rangefinder readout in the wheel |
 | Compatibility / ShowUnknownModes | true | Show unmapped devices as numbered modes |

@@ -62,13 +62,13 @@ internal sealed class RadialMenuUI : IDisposable
 
 	private float radius;
 
-	private const UiLanguage language = UiLanguage.SimplifiedChinese;
+	private UiLanguage language;
 
 	private string EmptyText => L("No usable tactical devices\nRight-click to close", "当前武器无可用设备\n右键关闭");
 
 	private string L(string english, string chinese)
 	{
-		return Localization.Pick(UiLanguage.SimplifiedChinese, english, chinese);
+		return Localization.Pick(language, english, chinese);
 	}
 
 	public RadialMenuUI(Plugin plugin)
@@ -129,6 +129,7 @@ internal sealed class RadialMenuUI : IDisposable
 	{
 		EnsureRoot();
 		Hide();
+		language = plugin.Options.Language.Value;
 		root.SetActive(true);
 		content = new GameObject("WheelContent", new Type[1] { typeof(RectTransform) });
 		content.transform.SetParent(root.transform, false);
@@ -180,7 +181,7 @@ internal sealed class RadialMenuUI : IDisposable
 			float num13 = num12 / 2f - num7 / 2f;
 			Image icon = Picture("Function", (Transform)(object)parent, plugin.Icons.Get(tacticalCapability.IconKey), Vector2.one * num7, new Vector2(0f, num13));
 			num13 -= num7 / 2f + 3f + num11 / 2f;
-			Text functionLabel = Label("Capability", (Transform)(object)parent, tacticalCapability.DisplayLabel(UiLanguage.SimplifiedChinese), new Vector2(num5, num11), new Vector2(0f, num13), (tacticalCapability.Type == "Rangefinder") ? Mathf.Max(10, num6 - 2) : num6);
+			Text functionLabel = Label("Capability", (Transform)(object)parent, tacticalCapability.DisplayLabel(language), new Vector2(num5, num11), new Vector2(0f, num13), (tacticalCapability.Type == "Rangefinder") ? Mathf.Max(10, num6 - 2) : num6);
 			num13 -= num11 / 2f + 3f + num10 / 2f;
 			ItemIcon itemIcon = tacticalCapability.Device.ItemIcon;
 			Image deviceIcon = Picture("Device", (Transform)(object)parent, ((itemIcon != null) ? itemIcon.Sprite : null) ?? plugin.Icons.Get("Device"), new Vector2(num8, num9), new Vector2((num8 - num5) / 2f, num13));
@@ -252,7 +253,7 @@ internal sealed class RadialMenuUI : IDisposable
 			if (text != entry.Reading)
 			{
 				entry.Reading = text;
-				entry.FunctionLabel.text = entry.Capability.DisplayLabel(UiLanguage.SimplifiedChinese) + (string.IsNullOrEmpty(text) ? "" : ("\n" + text));
+				entry.FunctionLabel.text = entry.Capability.DisplayLabel(language) + (string.IsNullOrEmpty(text) ? "" : ("\n" + text));
 			}
 			if (i == selected && (entry.On != isOn || entry.Available != canToggle))
 			{
@@ -261,12 +262,12 @@ internal sealed class RadialMenuUI : IDisposable
 			if (entry.On != isOn || entry.Available != canToggle)
 			{
 				Text state = entry.State;
-				string obj = (isOn ? "● 开启" : "○ 关闭");
+				string obj = (isOn ? L("● ON", "● 开启") : L("○ OFF", "○ 关闭"));
 				object obj2;
 				if (!canToggle)
 				{
 					StrobeController strobes = entry.Capability.Device.Strobes;
-					obj2 = ((strobes != null && strobes.IsRestoring(entry.Capability.Device.InstanceId)) ? " · 恢复中" : (entry.Capability.IsLinked ? " · 联动" : " · 不可组合"));
+					obj2 = ((strobes != null && strobes.IsRestoring(entry.Capability.Device.InstanceId)) ? L(" · Restoring", " · 恢复中") : (entry.Capability.IsLinked ? L(" · Linked", " · 联动") : L(" · Unavailable", " · 不可组合")));
 				}
 				else
 				{
@@ -305,7 +306,7 @@ internal sealed class RadialMenuUI : IDisposable
 			if (selected >= 0 && selected < entries.Count)
 			{
 				TacticalCapability capability = entries[selected].Capability;
-				center.text = capability.DisplayLabel(UiLanguage.SimplifiedChinese) + (string.IsNullOrEmpty(text2) ? "" : ("\n" + text2)) + "\n" + capability.ActionHint;
+				center.text = capability.DisplayLabel(language) + (string.IsNullOrEmpty(text2) ? "" : ("\n" + text2)) + "\n" + capability.ActionHint(language);
 				centerDevice.text = capability.Device.Name;
 				((Graphic)centerDevice).color = NameColor(capability.Device.DisplayName);
 			}

@@ -16,6 +16,8 @@ internal sealed class RangeReadout
 
 	private string lastRaw;
 
+	private UiLanguage lastLanguage;
+
 	public string Value { get; private set; } = "";
 
 
@@ -31,11 +33,16 @@ internal sealed class RangeReadout
 		}
 	}
 
-	public void Poll(double now, bool enabled, float refreshHz)
+	public void Poll(double now, bool enabled, float refreshHz, UiLanguage language)
 	{
+		if (language != lastLanguage)
+		{
+			lastLanguage = language;
+			lastRaw = null;
+		}
 		if (!enabled || !device.Component.IsActive)
 		{
-			Value = (enabled ? "关闭" : "");
+			Value = (enabled ? RangeReadoutText.Off(language) : "");
 			lastMode = -1;
 			lastRaw = null;
 			clock.Reset();
@@ -64,13 +71,13 @@ internal sealed class RangeReadout
 					if (text != lastRaw || Value.Length == 0)
 					{
 						lastRaw = text;
-						Value = RangeReadoutText.Format(text);
+						Value = RangeReadoutText.Format(text, language);
 					}
 					return;
 				}
 			}
 		}
 		lastRaw = null;
-		Value = "无读数";
+		Value = RangeReadoutText.NoReading(language);
 	}
 }
